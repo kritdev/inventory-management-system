@@ -12,6 +12,9 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
   ],
   imports: [
     SharedModule
+  ],
+  exports: [
+    NavbarComponent
   ]
 })
 export class PageModule {}
