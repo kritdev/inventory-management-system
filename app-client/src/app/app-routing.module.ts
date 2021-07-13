@@ -12,11 +12,11 @@ import { LoginComponent } from './security/login/login.component';
         {
           path: '',
           pathMatch: 'full',
-          redirectTo: 'main'
+          redirectTo: 'home'
         },
         {
-          path: 'main',
-          component: MainComponent
+          path: 'home',
+          component: HomeComponent
         },
         {
           path: 'login',
