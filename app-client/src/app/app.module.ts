@@ -4,7 +4,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
 import { PageModule } from './page/page.module';
 import { SecurityModule } from './security/security.module';
 import { AuthInterceptor } from './security/interceptor/auth.interceptor';
@@ -17,7 +16,6 @@ import { AuthExpiredInterceptor } from './security/interceptor/auth-expired.inte
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule,
     PageModule, SecurityModule,
     NgxWebstorageModule.forRoot()
   ],
