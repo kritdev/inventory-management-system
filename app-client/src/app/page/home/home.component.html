@@ -1,6 +1,9 @@
 <div class="m-2">
   <app-search-bar></app-search-bar>
-  <div>
-    <app-product-summary *ngFor="let product of productList"></app-product-summary>
+  <div class="d-flex m-3 flex-wrap">
+    <app-product-summary 
+      class="col-sm-12 col-lg-6"
+      *ngFor="let product of productList">
+    </app-product-summary>
   </div>
 </div>

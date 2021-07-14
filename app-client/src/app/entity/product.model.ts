@@ -1,5 +1,5 @@
-import { ICategory } from 'app/entities/category/category.model';
-import { IUnitOfMeasure } from 'app/entities/unit-of-measure/unit-of-measure.model';
+import { ICategory } from "./category.model";
+import { IUnitOfMeasure } from "./unit-of-measure.model";
 
 export interface IProduct {
   id?: number;
