@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from './home.service';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-home',
@@ -7,17 +7,17 @@ import { HomeService } from './home.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  data = null;
 
-  constructor(private homeService:HomeService) { }
+  productList: any;
 
+  constructor(private dataService: DataService) { }
+  
   ngOnInit(): void {
-    this.homeService
-      .retrieveData()
-      .subscribe(
-        result => { this.data = result as any[]; },
-        err => { alert(err); }
-      );
+    this.retrieveProductList();
+  }
+
+  retrieveProductList() {
+    this.productList = this.dataService.retrieveProductSummaryList();
   }
 
 }

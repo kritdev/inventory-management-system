@@ -1,0 +1,21 @@
+<div class="card m-3 bg-light">
+  <div class="card-body d-flex align-items-center">
+    <div>
+      <img class="img-product"
+        [src]="'data:' + product.images[0].imageDataContentType + ';base64,' + product.images[0].imageData">
+    </div>
+    <div class="flex-grow-1 m-3">
+      <h3 class="text-primary">{{product.name}}</h3>
+      <div class="text-secondary">
+        Brand: {{product.brand}} <br>
+        Category: {{product.category.name}}
+      </div>
+    </div>
+    <div>
+      <h1 class="text-dark">{{product.stockItems[0].countInStock}}</h1>
+      <div class="text-secondary text-center">
+        {{product.unitOfMeasure.name}}
+      </div>
+    </div>
+  </div>
+</div>

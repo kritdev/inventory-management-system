@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { HomeComponent } from './page/home/home.component';
-import { MainComponent } from './page/layout/main/main.component';
-import { LoginComponent } from './security/login/login.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from '../security/login/login.component';
 
 @NgModule({
   imports: [
@@ -12,11 +11,11 @@ import { LoginComponent } from './security/login/login.component';
         {
           path: '',
           pathMatch: 'full',
-          redirectTo: 'main'
+          redirectTo: 'home'
         },
         {
-          path: 'main',
-          component: MainComponent
+          path: 'home',
+          component: HomeComponent
         },
         {
           path: 'login',
@@ -27,4 +26,4 @@ import { LoginComponent } from './security/login/login.component';
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class PageRoutingModule {}

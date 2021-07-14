@@ -1,0 +1,30 @@
+.seach-bar-section{
+  background-color: white;
+  padding: 16px 5%;
+}
+
+.seach-bar-container {
+  border: 1px solid #dadce0;
+  border-radius: 50px;
+}
+
+.search-icon{
+  margin-left: 16px;
+  margin-right: 4px;
+}
+
+.search-text, .category-select {
+  border: none;
+  background-color: transparent;
+}
+
+.search-text, .category-select:focus {
+  box-shadow: none;
+}
+
+.category-select {
+  max-width: 150px;
+  border-left: 1px solid #dadce0;
+  border-radius: 0px !important;
+}
+

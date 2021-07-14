@@ -1,0 +1,11 @@
+app-search-bar {
+  position: fixed;
+  top: 55px;
+  right: 4%;
+  left: 4%;
+  z-index: 1020;
+}
+
+.product-content {
+  padding-top: 33px;
+}
