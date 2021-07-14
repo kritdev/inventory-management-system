@@ -5,3 +5,18 @@ p {
 .img-product {
   max-height: 150px;
 }
+
+.product-link {
+  background-color: transparent;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  height: 100%;
+  
+}
+
+.card:hover {
+  outline: solid 2px lightgrey;
+  outline-style: groove;
+}
