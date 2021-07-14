@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  productList = [1,2,3,4,5,6,7,8,9,10,11];
+  productList: any;
+
+  constructor(private dataService: DataService) { }
   
   ngOnInit(): void {
+    this.retrieveProductList();
+  }
+
+  retrieveProductList() {
+    this.productList = this.dataService.retrieveProductSummaryList();
   }
 
 }
