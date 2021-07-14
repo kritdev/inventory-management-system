@@ -23,7 +23,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
           component: LoginComponent
         },
         {
-          path: 'product-detail',
+          path: 'product-detail/:id',
           component: ProductDetailComponent
         },
       ]

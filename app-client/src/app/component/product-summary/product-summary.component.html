@@ -17,6 +17,6 @@
         {{product.unitOfMeasure.name}}
       </div>
     </div>
-    <a class="product-link" href="/product-detail"></a>
+    <a class="product-link" [routerLink]="['/product-detail', product.id]"></a>
   </div>
 </div>
