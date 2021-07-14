@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IProductSummary } from 'src/app/entity/product-summary.model';
 import { DataService } from 'src/app/service/data.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { DataService } from 'src/app/service/data.service';
 })
 export class HomeComponent implements OnInit {
 
-  productList: any;
+  productList: IProductSummary[];
 
   constructor(private dataService: DataService) { }
   

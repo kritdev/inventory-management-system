@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IProductSummary } from '../entity/product-summary.model';
 import { imageDataList } from './sample-data';
 
 @Injectable({
@@ -8,7 +9,7 @@ export class DataService {
 
   constructor() { }
 
-  public retrieveProductSummaryList() {
+  public retrieveProductSummaryList(): IProductSummary[] {
     return [
       {
         id: 101,
