@@ -1,5 +1,9 @@
+.seach-bar-section{
+  background-color: white;
+  padding: 16px 5%;
+}
+
 .seach-bar-container {
-  /* background-color: aqua; */
   border: 1px solid #dadce0;
   border-radius: 50px;
 }
