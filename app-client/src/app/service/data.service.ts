@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { InventoryTransactionItem } from '../entity/inventory-transaction-item.model';
+import { IInventoryTransactionItem } from '../entity/inventory-transaction-item.model';
 import { IProductSummary } from '../entity/product-summary.model';
 import { sampleProductDataList } from './sample-product-data';
 import { sampleTransactionByProductDataList } from './sample-transaction-log-data';
@@ -19,7 +19,7 @@ export class DataService {
     return sampleProductDataList;
   }
 
-  public retrieveTransactionLogByProductId(productId: number): InventoryTransactionItem[] {
+  public retrieveTransactionLogByProductId(productId: number): IInventoryTransactionItem[] {
     return sampleTransactionByProductDataList;
   }
 

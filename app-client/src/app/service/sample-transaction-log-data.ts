@@ -1,6 +1,6 @@
-import { InventoryTransactionItem } from "../entity/inventory-transaction-item.model";
+import { IInventoryTransactionItem } from "../entity/inventory-transaction-item.model";
 
-export const sampleTransactionByProductDataList:InventoryTransactionItem[] = [
+export const sampleTransactionByProductDataList:IInventoryTransactionItem[] = [
   {
     id:701,
     transactionDate:"2021-01-20 13:30:01",
