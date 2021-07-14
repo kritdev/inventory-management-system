@@ -6,7 +6,7 @@ p {
   max-height: 150px;
 }
 
-.product-link {
+.item-link {
   background-color: transparent;
   position: absolute;
   top: 0px;
@@ -16,7 +16,7 @@ p {
   
 }
 
-.card-hover:hover {
+.item-hover:hover {
   outline: solid 2px lightgrey;
   outline-style: groove;
 }

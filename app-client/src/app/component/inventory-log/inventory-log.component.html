@@ -1,5 +1,19 @@
 <div class="card m-3 bg-light">
-  <div class="card-body d-flex align-items-center">
+  <div class="card-body">
     <h2 class="text-secondary">Inventory Change Log</h2>
+    <div class="transactionItem-card row m-3 px-3 py-2 bg-light item-hover" *ngFor="let item of transactionItems"> 
+      <div class="col-6 col-md-3">
+        {{item.transactionDate | date:'yyyy/MM/dd' }}
+      </div>
+      <div class="col-5 col-md-2 text-end">
+        {{item.itemCount}}
+      </div>
+      <div class="col-1 col-md-1 text-end">
+      </div>
+      <div class="col-12 col-md-6">
+        {{item.description}}
+      </div>
+      <a class="item-link" [routerLink]="['/inventory-transaction', item.id]"></a>
+    </div>
   </div>
 </div>

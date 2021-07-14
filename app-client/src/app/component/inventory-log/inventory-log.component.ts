@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IInventoryTransactionItem } from 'src/app/entity/inventory-transaction-item.model';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-inventory-log',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InventoryLogComponent implements OnInit {
 
-  constructor() { }
+  @Input() productId: number;
+  transactionItems: IInventoryTransactionItem[];
+  
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
+    this.transactionItems = this.dataService.retrieveTransactionLogByProductId(this.productId);
   }
 
 }
