@@ -1,4 +1,4 @@
-<div class="card m-3 bg-light">
+<div class="card m-3 bg-light" [class.card-hover]="enableProductDetailLink">
   <div class="card-body d-flex align-items-center">
     <div>
       <img class="img-product"
@@ -17,6 +17,6 @@
         {{product.unitOfMeasure.name}}
       </div>
     </div>
-    <a class="product-link" [routerLink]="['/product-detail', product.id]"></a>
+    <a class="product-link" [routerLink]="['/product-detail', product.id]" *ngIf="enableProductDetailLink"></a>
   </div>
 </div>

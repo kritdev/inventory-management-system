@@ -16,7 +16,7 @@ p {
   
 }
 
-.card:hover {
+.card-hover:hover {
   outline: solid 2px lightgrey;
   outline-style: groove;
 }

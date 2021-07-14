@@ -10,6 +10,7 @@ import { IProduct } from 'src/app/entity/product.model';
 export class ProductSummaryComponent implements OnInit {
 
   @Input() product: IProductSummary;
+  @Input() enableProductDetailLink = true;
 
   constructor() { }
 
