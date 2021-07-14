@@ -1,6 +1,6 @@
 import { imageDataList } from "./sample-image";
 
-export const sampleDataList = [
+export const sampleProductDataList = [
   {
     id: 101,
     name: 'Small Chair',
