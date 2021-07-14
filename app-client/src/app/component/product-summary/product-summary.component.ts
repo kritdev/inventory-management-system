@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IProduct } from 'src/app/entity/product.model';
 
 @Component({
@@ -8,12 +8,7 @@ import { IProduct } from 'src/app/entity/product.model';
 })
 export class ProductSummaryComponent implements OnInit {
 
-  product: IProduct = {
-    name: 'Small Chair',
-    brand: 'Chicky Chair',
-    category: {name:'Chair'},
-    unitOfMeasure: {name:'pcs.'}
-  };
+  @Input() product: any;
 
   constructor() { }
 
