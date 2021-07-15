@@ -1,5 +1,6 @@
 import * as dayjs from 'dayjs';
-import { IProduct } from 'app/entities/product/product.model';
+import { IProduct } from './product.model';
+
 
 export interface IInventoryTransactionItem {
   id?: number;

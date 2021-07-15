@@ -1,0 +1,22 @@
+<div>
+
+  <div class="edit-dev card m-3 my-0 flex-row justify-content-end">
+    <div>
+      <h2>
+        <!-- <i class="edit-icon bi bi-pencil-fill"></i> -->
+        <a href="" class="icon-link text-secondary ">
+          <i class="edit-icon bi bi-pencil-square"></i>
+        </a>
+      </h2>
+    </div>
+  </div>
+
+  <app-product-summary 
+    [product]="product"
+    [enableProductDetailLink]="false">
+  </app-product-summary>
+
+  <app-inventory-log>
+  </app-inventory-log>
+
+</div>

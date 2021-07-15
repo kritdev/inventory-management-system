@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IProductSummary } from 'src/app/entity/product-summary.model';
 import { IProduct } from 'src/app/entity/product.model';
 
 @Component({
@@ -8,7 +9,8 @@ import { IProduct } from 'src/app/entity/product.model';
 })
 export class ProductSummaryComponent implements OnInit {
 
-  @Input() product: any;
+  @Input() product: IProductSummary;
+  @Input() enableProductDetailLink = true;
 
   constructor() { }
 

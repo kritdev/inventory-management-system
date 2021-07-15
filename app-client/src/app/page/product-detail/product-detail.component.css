@@ -1,0 +1,11 @@
+.edit-dev {
+  border: 0px;
+  height: 0px;
+}
+
+.edit-icon {
+  position: relative;
+  z-index: 100;
+  right: 4px;
+  top: 18px;
+}

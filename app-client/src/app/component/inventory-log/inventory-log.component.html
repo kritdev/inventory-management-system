@@ -1,0 +1,32 @@
+<div class="card m-3 bg-light">
+  <div class="card-body">
+    <h2 class="text-secondary d-flex justify-content-between">
+      Inventory Change Log
+      <a href="" class="icon-link text-secondary ">
+        <i class="bi bi-plus-circle-fill"></i>
+      </a>
+    </h2>
+    <div class="div-transactionItem-list">
+      <div class="transactionItem-card row m-3 px-3 py-2 bg-light item-hover" *ngFor="let item of transactionItems"> 
+        <div class="col-6 col-md-3">
+          {{item.transactionDate | date:'yyyy/MM/dd' }}
+        </div>
+        <div class="col-5 col-md-2 d-flex justify-content-between">
+          <span>
+            <i class="bi bi-plus-circle-fill text-success" *ngIf="item.itemCount > 0"></i>
+            <i class="bi bi-dash-circle-fill text-danger" *ngIf="item.itemCount < 0"></i>
+          </span>
+          <span>
+            {{ getAbsNumber(item.itemCount) | number}}
+          </span>
+        </div>
+        <div class="col-1 col-md-1 text-end">
+        </div>
+        <div class="col-12 col-md-6">
+          {{item.description}}
+        </div>
+        <a class="item-link" [routerLink]="['/inventory-transaction', item.id]"></a>
+      </div>
+    </div>
+  </div>
+</div>

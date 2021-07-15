@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from '../security/login/login.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,10 @@ import { LoginComponent } from '../security/login/login.component';
         {
           path: 'login',
           component: LoginComponent
+        },
+        {
+          path: 'product-detail/:id',
+          component: ProductDetailComponent
         },
       ]
     ),
