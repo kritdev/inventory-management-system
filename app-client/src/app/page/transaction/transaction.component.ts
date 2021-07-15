@@ -49,5 +49,7 @@ export class TransactionComponent implements OnInit {
 
   save() {}
 
-  previousState() {}
+  previousState(): void {
+    window.history.back();
+  }
 }
