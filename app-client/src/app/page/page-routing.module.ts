@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from '../security/login/login.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,10 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
         {
           path: 'product-detail/:id',
           component: ProductDetailComponent
+        },
+        {
+          path: 'transaction/new',
+          component: TransactionComponent
         },
       ]
     ),
