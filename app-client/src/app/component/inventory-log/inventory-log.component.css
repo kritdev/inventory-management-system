@@ -7,6 +7,11 @@
   position: relative;
 }
 
+.div-transactionItem-list {
+  height: calc(100vh - 380px);
+  overflow: auto;
+}
+
 .item-link {
   background-color: transparent;
   position: absolute;

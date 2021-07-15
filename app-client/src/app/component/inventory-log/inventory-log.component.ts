@@ -18,4 +18,7 @@ export class InventoryLogComponent implements OnInit {
     this.transactionItems = this.dataService.retrieveTransactionLogByProductId(this.productId);
   }
 
+  getAbsNumber(number) {
+    return Math.abs(number);
+  }
 }
