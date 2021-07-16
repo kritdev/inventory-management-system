@@ -1,3 +1,14 @@
 .img-product {
   height: 150px;
 }
+
+.icon-delete {
+  position: relative;
+  right: 16px;
+  vertical-align: top;
+}
+
+.icon-delete:hover {
+  cursor: pointer;
+}
+

@@ -82,10 +82,30 @@
             <div class="row mb-3">
               <label class="col-md-3 col-form-label text-md-end" for="field_description">Image</label>
               <div class="col-md-9">
-                <a href="" class="item-hover">
-                  <img class="img-product" src="assets/img/default-product-image.png">
-                </a>
+                
+                <input type="file" id="file_imageData" data-cy="imageData" (change)="setFileData($event, 'imageData', true)" accept="image/*" />
+
+                <div [ngSwitch]="!!editForm.get('imageData')!.value" class="m-3">
+                  <div *ngSwitchCase="true">
+                    <img class="img-product" 
+                      [src]="'data:' + editForm.get('imageDataContentType')!.value + ';base64,' + editForm.get('imageData')!.value"/>
+                    
+                    <a (click)="clearInputImage('imageData', 'imageDataContentType', 'file_imageData')">
+                      <i class="icon-delete bi bi-trash-fill text-danger"></i>
+                    </a>
+                  </div>
+
+                  <div *ngSwitchCase="false">
+                    <img class="img-product" src="assets/img/default-product-image.png"/>
+                  </div>
+
+                </div>
               </div>
+
+              <input type="hidden" class="form-control" name="imageId" id="field_imageData" data-cy="imageId" formControlName="imageId" />
+              <input type="hidden" class="form-control" name="imageData" id="field_imageData" data-cy="imageData" formControlName="imageData" />
+              <input type="hidden" class="form-control" name="imageDataContentType" id="field_imageDataContentType" formControlName="imageDataContentType"/>
+
             </div>
 
           </div>

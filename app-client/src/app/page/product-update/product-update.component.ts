@@ -1,11 +1,13 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ICategory } from 'src/app/entity/category.model';
+import { IImage } from 'src/app/entity/image.model';
 import { IProduct, Product } from 'src/app/entity/product.model';
 import { UnitOfMeasure } from 'src/app/entity/unit-of-measure.model';
+import { DataUtilService, FileLoadError } from 'src/app/service/data-util.service';
 import { DataService } from 'src/app/service/data.service';
 import { ProductService } from 'src/app/service/product.service';
 
@@ -18,6 +20,7 @@ export class ProductUpdateComponent implements OnInit {
 
   isSaving = false;
   product: IProduct;
+  productImage: IImage;
   categories: ICategory[];
   unitOfMeasures: UnitOfMeasure[];  
 
@@ -32,12 +35,18 @@ export class ProductUpdateComponent implements OnInit {
     description: [],
     category: [],
     unitOfMeasure: [],
+
+    imageId: [],
+    imageData: [],
+    imageDataContentType: [],
   });
 
   constructor(
     private fb: FormBuilder, 
     private dataService: DataService,
-    private productService: ProductService
+    private productService: ProductService,
+    private dataUtils: DataUtilService,
+    protected elementRef: ElementRef,
   ) { }
 
   ngOnInit(): void {
@@ -105,6 +114,32 @@ export class ProductUpdateComponent implements OnInit {
     };
   }
 
+  /******************************************************************
+   * Image
+   */
+
+  setFileData(event: Event, field: string, isImage: boolean): void {
+    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
+      error: (err: FileLoadError) =>
+        alert(err.message),
+    });
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  clearInputImage(field: string, fieldContentType: string, idInput: string): void {
+    this.editForm.patchValue({
+      [field]: null,
+      [fieldContentType]: null,
+    });
+    if (idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
+      this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
+    }
+  }
+
+  /* **************************************************************** */
   save(): void {
     this.isSaving = true;
     const product = this.getFormProduct();
