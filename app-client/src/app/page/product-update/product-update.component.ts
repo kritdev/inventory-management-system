@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ICategory } from 'src/app/entity/category.model';
 import { IProduct } from 'src/app/entity/product.model';
 import { UnitOfMeasure } from 'src/app/entity/unit-of-measure.model';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-product-update',
@@ -26,31 +27,27 @@ export class ProductUpdateComponent implements OnInit {
     unitOfMeasure: [],
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private dataService: DataService) { }
 
   ngOnInit(): void {
     this.updateForm(this.product);
   }
 
   protected updateForm(product: IProduct): void {
-    this.editForm.patchValue({
-      id: product.id,
-      name: product.name,
-      productCode: product.productCode,
-      brand: product.brand,
-      description: product.description,
-      category: product.category,
-      unitOfMeasure: product.unitOfMeasure,
-    });
+    if(product) {
+      this.editForm.patchValue({
+        id: product.id,
+        name: product.name,
+        productCode: product.productCode,
+        brand: product.brand,
+        description: product.description,
+        category: product.category,
+        unitOfMeasure: product.unitOfMeasure,
+      });
+    }
 
-    // this.categories = this.categoryService.addCategoryToCollectionIfMissing(
-    //   this.categories,
-    //   product.category
-    // );
-    // this.unitOfMeasures = this.unitOfMeasureService.addUnitOfMeasureToCollectionIfMissing(
-    //   this.unitOfMeasures,
-    //   product.unitOfMeasure
-    // );
+    this.categories = this.dataService.retrieveCategorieList();
+    this.unitOfMeasures = this.dataService.retrieveUnitOfMeasureList();
   }
 
   trackById(index: number, item: any): number {
