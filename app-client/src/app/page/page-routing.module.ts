@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from '../security/login/login.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { ProductUpdateComponent } from './product-update/product-update.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,10 @@ import { TransactionComponent } from './transaction/transaction.component';
         {
           path: 'product-detail/:id',
           component: ProductDetailComponent
+        },
+        {
+          path: 'product',
+          component: ProductUpdateComponent
         },
         {
           path: 'transaction/new',

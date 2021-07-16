@@ -7,6 +7,7 @@ import { MainComponent } from './layout/main/main.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { ProductUpdateComponent } from './product-update/product-update.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { TransactionComponent } from './transaction/transaction.component';
     MainComponent,
     NavbarComponent,
     ProductDetailComponent,
-    TransactionComponent
+    TransactionComponent,
+    ProductUpdateComponent
   ],
   imports: [
     SharedModule,
