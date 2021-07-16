@@ -7,7 +7,7 @@ import { ICategory } from 'src/app/entity/category.model';
 import { IImage } from 'src/app/entity/image.model';
 import { IProduct, Product } from 'src/app/entity/product.model';
 import { UnitOfMeasure } from 'src/app/entity/unit-of-measure.model';
-import { DataUtilService, FileLoadError } from 'src/app/service/data-util.service';
+import { DataUtils, FileLoadError } from 'src/app/service/data-util.service';
 import { DataService } from 'src/app/service/data.service';
 import { ProductService } from 'src/app/service/product.service';
 
@@ -45,7 +45,7 @@ export class ProductUpdateComponent implements OnInit {
     private fb: FormBuilder, 
     private dataService: DataService,
     private productService: ProductService,
-    private dataUtils: DataUtilService,
+    private dataUtils: DataUtils,
     protected elementRef: ElementRef,
   ) { }
 

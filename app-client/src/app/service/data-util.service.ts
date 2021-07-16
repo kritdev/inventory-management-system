@@ -18,7 +18,7 @@ export interface FileLoadError {
 @Injectable({
   providedIn: 'root'
 })
-export class DataUtilService {
+export class DataUtils {
   /**
    * Method to find the byte size of the string provides
    */
