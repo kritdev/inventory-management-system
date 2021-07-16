@@ -1,4 +1,8 @@
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { ICategory } from '../entity/category.model';
 import { IInventoryTransactionItem } from '../entity/inventory-transaction-item.model';
 import { IProductSummary } from '../entity/product-summary.model';
@@ -12,7 +16,10 @@ import { sampleTransactionByProductDataList } from './sample-transaction-log-dat
 })
 export class DataService {
 
-  constructor() { }
+  //consume environment setting
+  apiUrl = environment.apiUrl + 'api/';
+
+  constructor(private http: HttpClient) { }
 
   public retrieveProductList(): IProduct[] {
     return sampleProductDataList;
@@ -38,11 +45,15 @@ export class DataService {
     ]
   }
 
-  public retrieveCategorieList(): ICategory[] {
-    return [
-      {id:301, name:'Chair'},
-      {id:302, name:'Table'},
-      {id:303, name:'Decorating'},
-    ]
+  public retrieveCategorieList(): Observable<any> {
+    return this.http.get<ICategory[]>(this.apiUrl + 'categories')
+      .pipe( 
+        catchError(error => {  return throwError('Retrieve categories fail.'); }) 
+      );
   }
 }
+
+// query(req?: any): Observable<EntityArrayResponseType> {
+//   const options = createRequestOption(req);
+//   return this.http.get<ICategory[]>(this.resourceUrl, { params: options, observe: 'response' });
+// }
