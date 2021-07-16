@@ -6,11 +6,24 @@
     </a>
   </div>
   <div class="p-2">
-    <a aria-label="Admin" target="_blank" rel="noopener" href="" title="Admin Setting">
-      <i class="bi bi-gear-fill text-light mx-2"></i>
-    </a>
-    <a aria-label="User" target="_blank" rel="noopener" href="" title="User Setting">
-      <i class="bi bi-person-fill text-light mx-2"></i>
-    </a>
+
+    <div [ngSwitch]="isAuthenticated()">
+  
+      <div *ngSwitchCase="false">
+        <a class="text-light" [routerLink]="['/login']">
+          <i class="bi bi-person-fill text-light mx-2"></i>
+          SIGN IN
+        </a>
+      </div>
+      
+      <div *ngSwitchCase="true"> 
+        <a aria-label="Admin" target="_blank" rel="noopener" href="" title="Admin Setting">
+          <i class="bi bi-gear-fill text-light mx-2"></i>
+        </a>
+        <a aria-label="User" target="_blank" rel="noopener" href="" title="User Setting">
+          <i class="bi bi-person-fill text-light mx-2"></i>
+        </a>
+      </div>
+    </div>
   </div>
 </div>

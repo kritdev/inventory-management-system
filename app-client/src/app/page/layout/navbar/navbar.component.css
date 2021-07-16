@@ -2,7 +2,14 @@ i {
   font-size: 1.7rem;
 }
 
+.bi {
+  vertical-align: middle;
+}
+
 .bi-stack {
   color: hsl(346, 100%, 32%);
-  vertical-align: middle;
+}
+
+a {
+  text-decoration: none;
 }

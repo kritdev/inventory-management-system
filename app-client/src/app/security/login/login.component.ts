@@ -29,7 +29,10 @@ export class LoginComponent {
         rememberMe: this.loginForm.get('rememberMe')!.value,
       })
       .subscribe(
-        () => this.authenticationError = false,
+        () => {
+          this.authenticationError = false;
+          window.history.back();
+        },
         () => this.authenticationError = true
       );
   }
