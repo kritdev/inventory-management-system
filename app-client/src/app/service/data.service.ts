@@ -37,12 +37,11 @@ export class DataService {
     return sampleTransactionByProductDataList;
   }
 
-  public retrieveUnitOfMeasureList(): UnitOfMeasure[] {
-    return [
-      {id:401, name:'pcs.'},
-      {id:402, name:'boxes'},
-      {id:403, name:'packs'},
-    ]
+  public retrieveUnitOfMeasureList(): Observable<any> {
+    return this.http.get<ICategory[]>(this.apiUrl + 'unit-of-measures')
+      .pipe( 
+        catchError(error => {  return throwError('Retrieve unit of measures fail.'); }) 
+      );
   }
 
   public retrieveCategorieList(): Observable<any> {
@@ -52,8 +51,3 @@ export class DataService {
       );
   }
 }
-
-// query(req?: any): Observable<EntityArrayResponseType> {
-//   const options = createRequestOption(req);
-//   return this.http.get<ICategory[]>(this.resourceUrl, { params: options, observe: 'response' });
-// }

@@ -64,12 +64,12 @@ export class ProductUpdateComponent implements OnInit {
 
   protected retrieveUnitOfMeasures() {
     this.isLoadingUnitOfMeasures = true;
-    this.dataService.retrieveCategorieList()
+    this.dataService.retrieveUnitOfMeasureList()
       .pipe(
-        finalize(() => this.isLoadingCategories = false)
+        finalize(() => this.isLoadingUnitOfMeasures = false)
       )
       .subscribe(
-        result => { this.categories = result as any; },
+        result => { this.unitOfMeasures = result as any; },
         err => { alert(err); }
       );
   }
