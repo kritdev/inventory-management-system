@@ -35,10 +35,12 @@ export class ProductUpdateComponent implements OnInit {
     description: [],
     category: [],
     unitOfMeasure: [],
+  });
 
+  imageForm = this.fb.group({
     imageId: [],
-    imageData: [],
-    imageDataContentType: [],
+    imageData: [null, [Validators.required]],
+    imageDataContentType: [null, [Validators.required]],
   });
 
   constructor(
@@ -114,12 +116,16 @@ export class ProductUpdateComponent implements OnInit {
     };
   }
 
+  getCountInStock():number {
+    return this.product && this.product.stockItems && this.product.stockItems[0] ? this.product.stockItems[0].countInStock : 0;
+  }
+
   /******************************************************************
    * Image
    */
 
   setFileData(event: Event, field: string, isImage: boolean): void {
-    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
+    this.dataUtils.loadFileToForm(event, this.imageForm, field, isImage).subscribe({
       error: (err: FileLoadError) =>
         alert(err.message),
     });
@@ -130,13 +136,17 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   clearInputImage(field: string, fieldContentType: string, idInput: string): void {
-    this.editForm.patchValue({
+    this.imageForm.patchValue({
       [field]: null,
       [fieldContentType]: null,
     });
     if (idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
       this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
     }
+  }
+
+  /* **************************************************************** */
+  saveImage(): void {
   }
 
   /* **************************************************************** */

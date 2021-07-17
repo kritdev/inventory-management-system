@@ -79,16 +79,54 @@
               </div>
             </div>
 
+          </div>
+    
+          <div class="row justify-content-around">
+            <button type="button" id="cancel-save" class="col-5 col-md-3 btn btn-secondary" (click)="previousState()">
+              <i class="bi bi-x-octagon"></i>&nbsp;<span>Cancel</span>
+            </button>
+    
+            <button type="submit" id="save-entity" class="col-5 col-md-3 btn btn-primary" [disabled]="editForm.invalid || isSaving">
+              <i class="bi bi-save"></i>&nbsp;<span>Save</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card m-3 bg-light">
+  <div class="card-body">
+    <div class="row justify-content-center">
+      <div class="col-8 col-xl-6">
+        <div class="row mb-3">
+          <label class="col-md-3 col-form-label text-md-end" for="field_countInStock">Item</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="countInStock" id="field_countInStock" data-cy="countInStock"  [value]="getCountInStock()" disabled/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card m-3 bg-light">
+  <div class="card-body">
+    <div class="row justify-content-center">
+      <div class="col-8 col-xl-6">
+        <form name="imageForm" role="form" novalidate (ngSubmit)="saveImage()" [formGroup]="imageForm">
+          <div> 
             <div class="row mb-3">
               <label class="col-md-3 col-form-label text-md-end" for="field_description">Image</label>
               <div class="col-md-9">
                 
                 <input type="file" id="file_imageData" data-cy="imageData" (change)="setFileData($event, 'imageData', true)" accept="image/*" />
 
-                <div [ngSwitch]="!!editForm.get('imageData')!.value" class="m-3">
+                <div [ngSwitch]="!!imageForm.get('imageData')!.value" class="m-3">
                   <div *ngSwitchCase="true">
                     <img class="img-product" 
-                      [src]="'data:' + editForm.get('imageDataContentType')!.value + ';base64,' + editForm.get('imageData')!.value"/>
+                      [src]="'data:' + imageForm.get('imageDataContentType')!.value + ';base64,' + imageForm.get('imageData')!.value"/>
                     
                     <a (click)="clearInputImage('imageData', 'imageDataContentType', 'file_imageData')">
                       <i class="icon-delete bi bi-trash-fill text-danger"></i>
@@ -107,17 +145,11 @@
               <input type="hidden" class="form-control" name="imageDataContentType" id="field_imageDataContentType" formControlName="imageDataContentType"/>
 
             </div>
-
-          </div>
-    
-          <div class="row justify-content-around">
-            <button type="button" id="cancel-save" class="col-5 col-md-3 btn btn-secondary" (click)="previousState()">
-              <i class="bi bi-x-octagon"></i>&nbsp;<span>Cancel</span>
-            </button>
-    
-            <button type="submit" id="save-entity" class="col-5 col-md-3 btn btn-primary" [disabled]="editForm.invalid || isSaving">
-              <i class="bi bi-save"></i>&nbsp;<span>Save</span>
-            </button>
+            <div class="row justify-content-around">    
+              <button type="submit" id="save-entity" class="col-5 col-md-3 btn btn-primary" [disabled]="imageForm.invalid || isSaving">
+                <i class="bi bi-save"></i>&nbsp;<span>Update</span>
+              </button>
+            </div>
           </div>
         </form>
       </div>
