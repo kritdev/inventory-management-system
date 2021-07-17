@@ -144,10 +144,8 @@ export class ProductUpdateComponent implements OnInit {
     this.isSaving = true;
     const product = this.getFormProduct();
     if (product.id) {
-      console.log('update(product)');
       this.subscribeToSaveResponse(this.productService.update(product));
     } else {
-      console.log('create(product)');
       this.subscribeToSaveResponse(this.productService.create(product));
     }
   }
@@ -160,16 +158,17 @@ export class ProductUpdateComponent implements OnInit {
     result
       .pipe(finalize(() => this.isSaving = false))
       .subscribe(
-        () => this.onSaveSuccess(),
-        () => this.onSaveError()
+        result => this.onSaveSuccess(result),
+        err => this.onSaveError(err)
       );
   }
 
-  protected onSaveSuccess(): void {
-    this.previousState();
+  protected onSaveSuccess(result): void {
+    this.product = result.body;
+    this.updateForm(this.product);
   }
 
-  protected onSaveError(): void {
+  protected onSaveError(err): void {
     alert('Error');
   }
 }
