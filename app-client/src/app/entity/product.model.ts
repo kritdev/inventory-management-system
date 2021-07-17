@@ -1,4 +1,6 @@
 import { ICategory } from "./category.model";
+import { IImage } from "./image.model";
+import { IStockItem } from "./stock-item.model";
 import { IUnitOfMeasure } from "./unit-of-measure.model";
 
 export interface IProduct {
@@ -9,6 +11,8 @@ export interface IProduct {
   description?: string | null;
   category?: ICategory | null;
   unitOfMeasure?: IUnitOfMeasure | null;
+  images?: IImage[] | null;
+  stockItems?: IStockItem[] | null;
 }
 
 export class Product implements IProduct {
@@ -19,7 +23,9 @@ export class Product implements IProduct {
     public brand?: string | null,
     public description?: string | null,
     public category?: ICategory | null,
-    public unitOfMeasure?: IUnitOfMeasure | null
+    public unitOfMeasure?: IUnitOfMeasure | null,
+    public images?: IImage[] | null,
+    public stockItems?: IStockItem[] | null,
   ) {}
 }
 
