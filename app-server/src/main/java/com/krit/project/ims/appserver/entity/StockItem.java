@@ -32,7 +32,7 @@ public class StockItem implements Serializable {
   private Integer countInStock;
 
   @ManyToOne
-  @JsonIgnoreProperties(value = {"category", "unitOfMeasure"}, allowSetters = true)
+  @JsonIgnoreProperties(value = {"images", "stockItems", "category", "unitOfMeasure"}, allowSetters = true)
   private Product product;
 
   // jhipster-needle-entity-add-field - JHipster will add fields here
