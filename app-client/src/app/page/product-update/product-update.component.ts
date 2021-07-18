@@ -9,6 +9,7 @@ import { IProduct, Product } from 'src/app/entity/product.model';
 import { UnitOfMeasure } from 'src/app/entity/unit-of-measure.model';
 import { DataUtils, FileLoadError } from 'src/app/service/data-util.service';
 import { DataService } from 'src/app/service/data.service';
+import { ImageService } from 'src/app/service/image.service';
 import { ProductService } from 'src/app/service/product.service';
 
 @Component({
@@ -19,6 +20,7 @@ import { ProductService } from 'src/app/service/product.service';
 export class ProductUpdateComponent implements OnInit {
 
   isSaving = false;
+  isImageSaving = false;
   product: IProduct;
   productImage: IImage;
   categories: ICategory[];
@@ -47,6 +49,7 @@ export class ProductUpdateComponent implements OnInit {
     private fb: FormBuilder, 
     private dataService: DataService,
     private productService: ProductService,
+    private imageService: ImageService,
     private dataUtils: DataUtils,
     protected elementRef: ElementRef,
   ) { }
@@ -96,6 +99,18 @@ export class ProductUpdateComponent implements OnInit {
         category: product.category,
         unitOfMeasure: product.unitOfMeasure,
       });
+
+    this.displayProductImage(product);
+    }
+  }
+
+  protected updateImageForm(image: IImage): void {
+    if(image) {
+      this.imageForm.patchValue({
+        imageId: image.id,
+        imageData: image.id,
+        imageDataContentType: image.id,
+      });
     }
   }
 
@@ -116,13 +131,31 @@ export class ProductUpdateComponent implements OnInit {
     };
   }
 
+  protected getFormImage(): IImage {
+    return {
+      ...new Image(),
+      id: this.imageForm.get(['imageId'])!.value,
+      imageData: this.imageForm.get(['imageData'])!.value,
+      imageDataContentType: this.imageForm.get(['imageDataContentType'])!.value,
+    };
+  }
+
   getCountInStock():number {
     return this.product && this.product.stockItems && this.product.stockItems[0] ? this.product.stockItems[0].countInStock : 0;
+  }
+
+  previousState(): void {
+    window.history.back();
   }
 
   /******************************************************************
    * Image
    */
+   displayProductImage(product: IProduct) {
+    if(product && product.images && product.images[0]) {
+      this.updateImageForm(product.images[0]);
+    }
+  }
 
   setFileData(event: Event, field: string, isImage: boolean): void {
     this.dataUtils.loadFileToForm(event, this.imageForm, field, isImage).subscribe({
@@ -145,11 +178,48 @@ export class ProductUpdateComponent implements OnInit {
     }
   }
 
-  /* **************************************************************** */
   saveImage(): void {
+    if(!(this.product && this.product.id)){
+      alert("Product is invalid");
+    }
+
+    this.isImageSaving = true;
+    const image = this.getFormImage();
+    image.product = {id: this.product.id};
+
+    if (image.id) {
+      console.log('updateImage()');
+      this.subscribeToSaveImageResponse(this.imageService.update(image));
+    } else {
+      console.log('saveImage()');
+      this.subscribeToSaveImageResponse(this.imageService.create(image));
+    }
+  }
+
+  protected subscribeToSaveImageResponse(result: Observable<HttpResponse<IProduct>>): void {
+    result
+      .pipe(finalize(() => this.isImageSaving = false))
+      .subscribe(
+        result => this.onSaveImageSuccess(result),
+        err => this.onSaveError(err)
+      );
+  }
+
+  protected onSaveImageSuccess(result): void {
+    const image = result.body;
+    alert(image.id)
+
+    if(!this.product.images){
+      this.product.images = [image];
+    } else {
+      this.product.images[0] = image;
+    }
+
+    this.updateImageForm(image);
   }
 
   /* **************************************************************** */
+
   save(): void {
     this.isSaving = true;
     const product = this.getFormProduct();
@@ -158,10 +228,6 @@ export class ProductUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.productService.create(product));
     }
-  }
-
-  previousState(): void {
-    window.history.back();
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IProduct>>): void {
@@ -181,4 +247,5 @@ export class ProductUpdateComponent implements OnInit {
   protected onSaveError(err): void {
     alert('Error');
   }
+
 }
