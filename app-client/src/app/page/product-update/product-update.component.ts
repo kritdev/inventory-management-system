@@ -134,8 +134,8 @@ export class ProductUpdateComponent implements OnInit {
     if(image) {
       this.imageForm.patchValue({
         imageId: image.id,
-        imageData: image.id,
-        imageDataContentType: image.id,
+        imageData: image.imageData,
+        imageDataContentType: image.imageDataContentType,
       });
     }
   }
@@ -214,10 +214,8 @@ export class ProductUpdateComponent implements OnInit {
     image.product = {id: this.product.id};
 
     if (image.id) {
-      console.log('updateImage()');
       this.subscribeToSaveImageResponse(this.imageService.update(image));
     } else {
-      console.log('saveImage()');
       this.subscribeToSaveImageResponse(this.imageService.create(image));
     }
   }
@@ -233,8 +231,6 @@ export class ProductUpdateComponent implements OnInit {
 
   protected onSaveImageSuccess(result): void {
     const image = result.body;
-    alert(image.id)
-
     if(!this.product.images){
       this.product.images = [image];
     } else {

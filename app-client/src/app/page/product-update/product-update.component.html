@@ -140,13 +140,13 @@
                 </div>
               </div>
 
-              <input type="hidden" class="form-control" name="imageId" id="field_imageData" data-cy="imageId" formControlName="imageId" />
+              <input type="hidden" class="form-control" name="imageId" id="field_imageId" data-cy="imageId" formControlName="imageId" />
               <input type="hidden" class="form-control" name="imageData" id="field_imageData" data-cy="imageData" formControlName="imageData" />
               <input type="hidden" class="form-control" name="imageDataContentType" id="field_imageDataContentType" formControlName="imageDataContentType"/>
 
             </div>
             <div class="row justify-content-around">    
-              <button type="submit" id="save-entity" class="col-5 col-md-3 btn btn-primary" [disabled]="imageForm.invalid || isImageSaving">
+              <button type="submit" id="save-image" class="col-5 col-md-3 btn btn-primary" [disabled]="imageForm.invalid || isImageSaving">
                 <i class="bi bi-save"></i>&nbsp;<span>Update</span>
               </button>
             </div>
