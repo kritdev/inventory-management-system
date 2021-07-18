@@ -1,6 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ICategory } from 'src/app/entity/category.model';
@@ -26,6 +27,7 @@ export class ProductUpdateComponent implements OnInit {
   categories: ICategory[];
   unitOfMeasures: UnitOfMeasure[];  
 
+  isLoadingProduct = false;
   isLoadingCategories = false;
   isLoadingUnitOfMeasures = false;
 
@@ -47,6 +49,7 @@ export class ProductUpdateComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder, 
+    private route: ActivatedRoute,
     private dataService: DataService,
     private productService: ProductService,
     private imageService: ImageService,
@@ -55,8 +58,31 @@ export class ProductUpdateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.updateForm(this.product);
     this.retrieveData();
+    this.updateForm(this.product);
+
+    // if provide product id, retrieve product
+    this.route.params.subscribe(p => {
+      if(p.id) {
+        this.retrieveProduct(p.id);
+      }
+    });
+
+  }
+
+  protected retrieveProduct(productId: number) {
+    this.isLoadingProduct = true;
+    this.productService.find(productId)
+      .pipe(
+        finalize(() => this.isLoadingProduct = false)
+      )
+      .subscribe(
+        result => { 
+          this.product = result.body; 
+          this.updateForm(this.product);
+        },
+        err => { alert(err); }
+      );
   }
 
   protected retrieveData() {
