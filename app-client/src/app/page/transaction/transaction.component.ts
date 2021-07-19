@@ -104,6 +104,8 @@ export class TransactionComponent implements OnInit {
       product: {id: result.body.product.id}         // link only to product id
     };
     this.updateForm(this.inventoryTransactionItem);
+
+    this.previousState();
   }
 
   protected onSaveError(err): void {
