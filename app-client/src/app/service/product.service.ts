@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IProduct } from '../entity/product.model';
 import { catchError } from 'rxjs/operators';
+import { createRequestOption } from './request-util';
 
 export type EntityResponseType = HttpResponse<IProduct>;
 export type EntityArrayResponseType = HttpResponse<IProduct[]>;
@@ -35,5 +36,10 @@ export class ProductService {
             .pipe( 
               catchError(error => {  return throwError('Find Product Error.'); }) 
             );
+  }
+
+  query(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IProduct[]>(this.apiUrl, { params: options, observe: 'response' });
   }
 }

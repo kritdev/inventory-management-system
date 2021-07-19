@@ -1,6 +1,7 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IProductSummary } from 'src/app/entity/product-summary.model';
-import { DataService } from 'src/app/service/data.service';
+import { IProduct, Product } from 'src/app/entity/product.model';
+import { ProductService } from 'src/app/service/product.service';
 
 @Component({
   selector: 'app-home',
@@ -9,16 +10,26 @@ import { DataService } from 'src/app/service/data.service';
 })
 export class HomeComponent implements OnInit {
 
-  productList: IProductSummary[];
+  productList: IProduct[];
+  isLoading = false;
 
-  constructor(private dataService: DataService) { }
+  constructor(private productService: ProductService) { }
   
   ngOnInit(): void {
     this.retrieveProductList();
   }
 
-  retrieveProductList() {
-    this.productList = this.dataService.retrieveProductSummaryList();
+  protected retrieveProductList() {
+    this.isLoading = true;
+    this.productService.query().subscribe(
+      (res: HttpResponse<IProduct[]>) => {
+        this.isLoading = false;
+        this.productList = res.body ?? [];
+      },
+      () => {
+        this.isLoading = false;
+      }
+    );
   }
 
 }

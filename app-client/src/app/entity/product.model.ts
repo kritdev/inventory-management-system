@@ -1,5 +1,5 @@
 import { ICategory } from "./category.model";
-import { IImage } from "./image.model";
+import { IImage, Image } from "./image.model";
 import { IStockItem } from "./stock-item.model";
 import { IUnitOfMeasure } from "./unit-of-measure.model";
 
@@ -31,4 +31,24 @@ export class Product implements IProduct {
 
 export function getProductIdentifier(product: IProduct): number | undefined {
   return product.id;
+}
+
+export function hasImage(product: IProduct):boolean {
+  return product.images && product.images.length > 0;
+}
+
+export function getProductImage(product: IProduct): IImage {
+  if(hasImage(product)) {
+    return product.images[0];
+  } else {
+    return null;
+  }
+}
+
+export function getCountInStock(product: IProduct): number {
+  if(product.stockItems && product.stockItems.length ) {
+    return product.stockItems[0].countInStock;
+  } else {
+    return 0;
+  }
 }
