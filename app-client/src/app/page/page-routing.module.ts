@@ -33,6 +33,10 @@ import { ProductUpdateComponent } from './product-update/product-update.componen
           component: ProductUpdateComponent
         },
         {
+          path: 'product/:id',
+          component: ProductUpdateComponent
+        },
+        {
           path: 'transaction/new',
           component: TransactionComponent
         },

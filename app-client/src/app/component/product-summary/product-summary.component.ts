@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IProductSummary } from 'src/app/entity/product-summary.model';
-import { IProduct } from 'src/app/entity/product.model';
+import { getCountInStock, getProductImage, hasImage, IProduct } from 'src/app/entity/product.model';
 
 @Component({
   selector: 'app-product-summary',
@@ -9,7 +8,7 @@ import { IProduct } from 'src/app/entity/product.model';
 })
 export class ProductSummaryComponent implements OnInit {
 
-  @Input() product: IProductSummary;
+  @Input() product: IProduct;
   @Input() enableProductDetailLink = true;
 
   constructor() { }
@@ -17,4 +16,15 @@ export class ProductSummaryComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  hasImage() {
+    return this.product && hasImage(this.product);
+  }
+
+  getProductImage() {
+    return getProductImage(this.product);
+  }
+
+  getCountInStock() {
+    return getCountInStock(this.product);
+  }
 }

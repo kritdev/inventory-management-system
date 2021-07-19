@@ -4,14 +4,14 @@
     <div>
       <h2>
         <!-- <i class="edit-icon bi bi-pencil-fill"></i> -->
-        <a class="icon-link text-secondary" [routerLink]="['/product']">
+        <a class="icon-link text-secondary" [routerLink]="['/product', productId]">
           <i class="edit-icon bi bi-pencil-square"></i>
         </a>
       </h2>
     </div>
   </div>
 
-  <app-product-summary 
+  <app-product-summary *ngIf="!isLoadingProduct"
     [product]="product"
     [enableProductDetailLink]="false">
   </app-product-summary>

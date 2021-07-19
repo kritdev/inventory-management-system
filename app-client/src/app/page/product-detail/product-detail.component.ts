@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IProductSummary } from 'src/app/entity/product-summary.model';
-import { DataService } from 'src/app/service/data.service';
+import { finalize } from 'rxjs/operators';
+import { IProduct } from 'src/app/entity/product.model';
+import { ProductService } from 'src/app/service/product.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -11,22 +12,33 @@ import { DataService } from 'src/app/service/data.service';
 export class ProductDetailComponent implements OnInit {
 
   productId: number;
-  product: IProductSummary;
+  product: IProduct;
+  isLoadingProduct = false;
 
   constructor(
     private route: ActivatedRoute,
-    private dataService: DataService
+    private productService: ProductService
     ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(p => {
       this.productId = p.id;
-      this.retrieveData();
+      this.retrieveProduct(this.productId);
     });
   }
 
-  retrieveData() {
-    this.product = this.dataService.retrieveProductSummary(this.productId);
+  protected retrieveProduct(productId: number) {
+    this.isLoadingProduct = true;
+    this.productService.find(productId)
+      .pipe(
+        finalize(() => this.isLoadingProduct = false)
+      )
+      .subscribe(
+        result => { 
+          this.product = result.body; 
+        },
+        err => { alert(err); }
+      );
   }
 
 }
