@@ -1,6 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { IInventoryTransactionItem, InventoryTransactionItem } from 'src/app/entity/inventory-transaction-item.model';
@@ -15,7 +16,8 @@ import { TransactionItemService } from 'src/app/service/transaction-item.service
 })
 export class TransactionComponent implements OnInit {
 
-  isLoading = true;
+  isLoading = false;
+  isLoadingTransactionItem = false;
   isSaving = false;
   inventoryTransactionItem: IInventoryTransactionItem;
   productNameList: IProduct[] = [];
@@ -30,6 +32,7 @@ export class TransactionComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder, 
+    private route: ActivatedRoute,
     private productService: ProductService,
     private transactionItemService: TransactionItemService,
   ) { }
@@ -37,6 +40,28 @@ export class TransactionComponent implements OnInit {
   ngOnInit(): void {  
     this.retrieveProductNameList();
     this.updateForm(this.inventoryTransactionItem);
+
+    // if provide id, retrieve item
+    this.route.params.subscribe(p => {
+      if(p.id) {
+        this.retrieveTransactionItem(p.id);
+      }
+    });
+  }
+
+  retrieveTransactionItem(itemId: number) {
+    this.isLoadingTransactionItem = true;
+    this.transactionItemService.find(itemId)
+      .pipe(
+        finalize(() => this.isLoadingTransactionItem = false)
+      )
+      .subscribe(
+        result => { 
+          this.inventoryTransactionItem = result.body; 
+          this.updateForm(this.inventoryTransactionItem);
+        },
+        err => { alert(err); }
+      );
   }
 
   protected retrieveProductNameList() {

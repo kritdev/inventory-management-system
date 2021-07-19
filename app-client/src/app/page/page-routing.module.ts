@@ -40,6 +40,10 @@ import { ProductUpdateComponent } from './product-update/product-update.componen
           path: 'transaction',
           component: TransactionComponent
         },
+        {
+          path: 'transaction/:id',
+          component: TransactionComponent
+        },
       ]
     ),
   ],
