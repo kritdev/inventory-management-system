@@ -1,9 +1,12 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { IInventoryTransactionItem } from 'src/app/entity/inventory-transaction-item.model';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { IInventoryTransactionItem, InventoryTransactionItem } from 'src/app/entity/inventory-transaction-item.model';
 import { IProduct } from 'src/app/entity/product.model';
 import { ProductService } from 'src/app/service/product.service';
+import { TransactionItemService } from 'src/app/service/transaction-item.service';
 
 @Component({
   selector: 'app-transaction',
@@ -18,13 +21,18 @@ export class TransactionComponent implements OnInit {
   productNameList: IProduct[] = [];
 
   editForm = this.fb.group({
+    id: [],
     transactionDate: [null, [Validators.required]],
     itemCount: [null, [Validators.required]],
     description: [],
     product: [null, [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder, private productService: ProductService) { }
+  constructor(
+    private fb: FormBuilder, 
+    private productService: ProductService,
+    private transactionItemService: TransactionItemService,
+  ) { }
 
   ngOnInit(): void {  
     this.retrieveProductNameList();
@@ -60,7 +68,47 @@ export class TransactionComponent implements OnInit {
     return item.id!;
   }
 
-  save() {}
+  protected getFormItem(): IInventoryTransactionItem {
+    return {
+      ...new InventoryTransactionItem(),
+      id: this.editForm.get(['id'])!.value,
+      transactionDate: this.editForm.get(['transactionDate'])!.value,
+      itemCount: this.editForm.get(['itemCount'])!.value,
+      description: this.editForm.get(['description'])!.value,
+      product: { id: this.editForm.get(['product'])!.value.id},
+    };
+  }
+
+  save(): void {
+    this.isSaving = true;
+    const item = this.getFormItem();
+    if (item.id) {
+      this.subscribeToSaveResponse(this.transactionItemService.update(item));
+    } else {
+      this.subscribeToSaveResponse(this.transactionItemService.create(item));
+    }
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IInventoryTransactionItem>>): void {
+    result
+      .pipe(finalize(() => this.isSaving = false))
+      .subscribe(
+        result => this.onSaveSuccess(result),
+        err => this.onSaveError(err)
+      );
+  }
+
+  protected onSaveSuccess(result): void {
+    this.inventoryTransactionItem = {
+      ...result.body,
+      product: {id: result.body.product.id}         // link only to product id
+    };
+    this.updateForm(this.inventoryTransactionItem);
+  }
+
+  protected onSaveError(err): void {
+    alert('Error');
+  }
 
   previousState(): void {
     window.history.back();
