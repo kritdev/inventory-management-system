@@ -1,8 +1,9 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { IInventoryTransactionItem } from 'src/app/entity/inventory-transaction-item.model';
 import { IProduct } from 'src/app/entity/product.model';
-import { DataService } from 'src/app/service/data.service';
+import { ProductService } from 'src/app/service/product.service';
 
 @Component({
   selector: 'app-transaction',
@@ -11,10 +12,10 @@ import { DataService } from 'src/app/service/data.service';
 })
 export class TransactionComponent implements OnInit {
 
-
+  isLoading = true;
   isSaving = false;
   inventoryTransactionItem: IInventoryTransactionItem;
-  products: IProduct[] = [];
+  productNameList: IProduct[] = [];
 
   editForm = this.fb.group({
     transactionDate: [null, [Validators.required]],
@@ -23,10 +24,24 @@ export class TransactionComponent implements OnInit {
     product: [null, [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder, private dataService: DataService) { }
+  constructor(private fb: FormBuilder, private productService: ProductService) { }
 
   ngOnInit(): void {  
+    this.retrieveProductNameList();
     this.updateForm(this.inventoryTransactionItem);
+  }
+
+  protected retrieveProductNameList() {
+    this.isLoading = true;
+    this.productService.getNameList().subscribe(
+      (res: HttpResponse<IProduct[]>) => {
+        this.isLoading = false;
+        this.productNameList = res.body ?? [];
+      },
+      () => {
+        this.isLoading = false;
+      }
+    );
   }
 
   protected updateForm(inventoryTransactionItem: IInventoryTransactionItem): void {
@@ -39,8 +54,6 @@ export class TransactionComponent implements OnInit {
         product: inventoryTransactionItem.product,
       });
     }
-
-    this.products = this.dataService.retrieveProductList();
   }
   
   trackProductById(index: number, item: IProduct): number {

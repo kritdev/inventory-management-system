@@ -28,7 +28,7 @@
                   <option [ngValue]="null"></option>
                   <option
                     [ngValue]="productOption.id === editForm.get('product')!.value?.id ? editForm.get('product')!.value : productOption"
-                    *ngFor="let productOption of products; trackBy: trackProductById">
+                    *ngFor="let productOption of productNameList; trackBy: trackProductById">
                     {{ productOption.name }}
                   </option>
                 </select>

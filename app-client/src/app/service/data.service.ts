@@ -21,9 +21,9 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  public retrieveProductList(): IProduct[] {
-    return sampleProductDataList;
-  }
+  // public retrieveProductList(): IProduct[] {
+  //   return sampleProductDataList;
+  // }
 
   // public retrieveProductSummary(productId: number): IProductSummary {
   //   return sampleProductDataList[productId - 101];
