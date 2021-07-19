@@ -25,9 +25,9 @@ export class DataService {
     return sampleProductDataList;
   }
 
-  public retrieveProductSummary(productId: number): IProductSummary {
-    return sampleProductDataList[productId - 101];
-  }
+  // public retrieveProductSummary(productId: number): IProductSummary {
+  //   return sampleProductDataList[productId - 101];
+  // }
 
   // public retrieveProductSummaryList(): IProductSummary[] {
   //   return sampleProductDataList;
