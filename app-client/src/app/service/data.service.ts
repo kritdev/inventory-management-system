@@ -33,9 +33,9 @@ export class DataService {
   //   return sampleProductDataList;
   // }
 
-  public retrieveTransactionLogByProductId(productId: number): IInventoryTransactionItem[] {
-    return sampleTransactionByProductDataList;
-  }
+  // public retrieveTransactionLogByProductId(productId: number): IInventoryTransactionItem[] {
+  //   return sampleTransactionByProductDataList;
+  // }
 
   public retrieveUnitOfMeasureList(): Observable<any> {
     return this.http.get<ICategory[]>(this.apiUrl + 'unit-of-measures')

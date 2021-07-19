@@ -45,4 +45,12 @@ export class TransactionItemService {
               catchError(error => {  return throwError('Query InventoryTransactionItem Error.'); }) 
             );
   }
+
+  queryByProductId(productId: number): Observable<EntityArrayResponseType> {
+    return this.http.get<IInventoryTransactionItem[]>(`${this.apiUrl}/product/${productId}`, { observe: 'response' })
+            .pipe( 
+              catchError(error => {  return throwError('Query InventoryTransactionItem by Product Id Error.'); }) 
+            );
+  }
+
 }

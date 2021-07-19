@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.krit.project.ims.appserver.entity.InventoryTransactionItem;
 import com.krit.project.ims.appserver.entity.repository.InventoryTransactionItemRepository;
 import com.krit.project.ims.appserver.rest.errors.BadRequestAlertException;
+import com.krit.project.ims.appserver.rest.vm.InventoryTransactionItemWithProductName;
 
 @RestController
 @RequestMapping("/api")
@@ -88,6 +90,14 @@ public class InventoryTransactionItemResource {
     Optional<InventoryTransactionItem> inventoryTransactionItem =
         inventoryTransactionItemRepository.findById(id);
     return AppResponseUtil.wrapOrNotFound(inventoryTransactionItem);
+  }
+
+  @GetMapping("/transaction-items/product/{productId}")
+  public List<InventoryTransactionItemWithProductName> findTransactionItemByProductId(
+      @PathVariable Long productId) {
+    log.debug("REST request to get transaction-items by product id");
+    return inventoryTransactionItemRepository.findByProductId(productId,
+        Sort.by("transactionDate").descending());
   }
 
   @DeleteMapping("/transaction-items/{id}")
