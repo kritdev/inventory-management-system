@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!isLoadingProduct">
 
   <div class="edit-dev card m-3 my-0 flex-row justify-content-end">
     <div>
@@ -11,12 +11,13 @@
     </div>
   </div>
 
-  <app-product-summary *ngIf="!isLoadingProduct"
+  <app-product-summary
     [product]="product"
     [enableProductDetailLink]="false">
   </app-product-summary>
 
-  <app-inventory-log>
+  <app-inventory-log
+    [productId]="product.id">
   </app-inventory-log>
 
 </div>

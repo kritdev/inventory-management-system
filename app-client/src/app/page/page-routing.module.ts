@@ -37,7 +37,11 @@ import { ProductUpdateComponent } from './product-update/product-update.componen
           component: ProductUpdateComponent
         },
         {
-          path: 'transaction/new',
+          path: 'transaction',
+          component: TransactionComponent
+        },
+        {
+          path: 'transaction/:id',
           component: TransactionComponent
         },
       ]

@@ -42,4 +42,8 @@ export class ProductService {
     const options = createRequestOption(req);
     return this.http.get<IProduct[]>(this.apiUrl, { params: options, observe: 'response' });
   }
+
+  getNameList(): Observable<EntityArrayResponseType> {
+    return this.http.get<IProduct[]>(`${this.apiUrl}/name-list`, { observe: 'response' });
+  }
 }
