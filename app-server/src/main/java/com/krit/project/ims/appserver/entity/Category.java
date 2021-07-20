@@ -14,6 +14,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Category.
+ * 
+ * (Extracted from jhipster generated code)
  */
 @Entity
 @Table(name = "category")
@@ -34,7 +36,6 @@ public class Category implements Serializable {
   @Column(name = "description")
   private String description;
 
-  // jhipster-needle-entity-add-field - JHipster will add fields here
   public Long getId() {
     return id;
   }
@@ -74,8 +75,6 @@ public class Category implements Serializable {
     this.description = description;
   }
 
-  // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -89,8 +88,6 @@ public class Category implements Serializable {
 
   @Override
   public int hashCode() {
-    // see
-    // https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
     return getClass().hashCode();
   }
 

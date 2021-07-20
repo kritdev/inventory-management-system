@@ -15,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A StockItem.
+ * 
+ * (Extracted from jhipster generated code)
  */
 @Entity
 @Table(name = "stock_item")
@@ -32,10 +34,10 @@ public class StockItem implements Serializable {
   private Integer countInStock;
 
   @ManyToOne
-  @JsonIgnoreProperties(value = {"images", "stockItems", "category", "unitOfMeasure"}, allowSetters = true)
+  @JsonIgnoreProperties(value = {"images", "stockItems", "category", "unitOfMeasure"},
+      allowSetters = true)
   private Product product;
 
-  // jhipster-needle-entity-add-field - JHipster will add fields here
   public Long getId() {
     return id;
   }
@@ -75,8 +77,6 @@ public class StockItem implements Serializable {
     this.product = product;
   }
 
-  // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -90,8 +90,6 @@ public class StockItem implements Serializable {
 
   @Override
   public int hashCode() {
-    // see
-    // https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
     return getClass().hashCode();
   }
 
