@@ -85,14 +85,13 @@ public class InventoryTransactionItemResource {
 
     // --- to be transaction ----------------------------------------------------
 
-    Optional<InventoryTransactionItem> currentTransactionItem =
-        inventoryTransactionItemRepository.findById(id);
+    Integer currentItemCount = inventoryTransactionItemRepository.findById(id).get().getItemCount();
 
     InventoryTransactionItem result =
         inventoryTransactionItemRepository.save(inventoryTransactionItem);
 
     stockItemResource.setCountInStock(inventoryTransactionItem.getProduct().getId(),
-        inventoryTransactionItem.getItemCount(), currentTransactionItem.get().getItemCount());
+        inventoryTransactionItem.getItemCount(), currentItemCount);
 
     // --- to be transaction ----------------------------------------------------
 
