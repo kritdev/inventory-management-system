@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.krit.project.ims.appserver.entity.Product;
 import com.krit.project.ims.appserver.entity.repository.ProductRepository;
 import com.krit.project.ims.appserver.rest.errors.BadRequestAlertException;
+import com.krit.project.ims.appserver.rest.vm.ProductName;
 
 @RestController
 @RequestMapping("/api")
@@ -125,5 +126,11 @@ public class ProductResource {
     log.debug("REST request to delete Product : {}", id);
     productRepository.deleteById(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping("/products/name-list")
+  public List<ProductName> getAllProductName() {
+    log.debug("REST request to get all ProductName");
+    return productRepository.findAllProductName();
   }
 }
