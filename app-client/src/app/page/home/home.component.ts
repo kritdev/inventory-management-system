@@ -2,6 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { IProductFilter } from 'src/app/entity/product-filter.model';
 import { IProduct, Product } from 'src/app/entity/product.model';
+import { AccountService } from 'src/app/security/auth/account.service';
 import { ProductService } from 'src/app/service/product.service';
 
 @Component({
@@ -15,7 +16,10 @@ export class HomeComponent implements OnInit {
   isLoading = false;
   productFilter: IProductFilter = {};
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private accountService: AccountService,
+    private productService: ProductService) { 
+    }
   
   ngOnInit(): void {
     this.retrieveProductList();
@@ -49,6 +53,10 @@ export class HomeComponent implements OnInit {
       return (this.productFilter.category? product.category.name.includes(this.productFilter.category) : true)
           && (this.productFilter.productName? product.name.toLowerCase().includes(this.productFilter.productName) : true);
     });
+  }
+
+  isAuthenticated() {
+    return this.accountService.isAuthenticated();
   }
 
 }

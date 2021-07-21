@@ -22,8 +22,7 @@ import { UserRouteAccessService } from '../security/auth/user-route-access.servi
         },
         {
           path: 'home',
-          component: HomeComponent,
-          canActivate:[UserRouteAccessService]
+          component: HomeComponent
         },
         {
           path: 'product-detail/:id',
