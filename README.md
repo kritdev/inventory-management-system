@@ -33,27 +33,38 @@
 ```
 
 ## Deploy Project
-1. Build Application (Spring boot and Angular)
+1. Update SQL Server setting for production environment in app-server. (app-server/src/main/resources/application-prod.properties).
+```
+  spring.jpa.hibernate.ddl-auto=update
+  spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/ims
+  spring.datasource.username=xxx
+  spring.datasource.password=xxx
+```
+Note. If these properties are not set, it will use setting from development environment (application.properties).
+
+2. Build Application (Spring boot and Angular)
 	- app-server
 		- cmd (app-server folder): mvnw package
 	- app-client
 		- cmd (app-client folder): ng build --prod
 
-2. Deploy Application
+3. Deploy Application
 	- Copy to file into production environment
 ```
 /application folder
-|-- rest-service-cors-0.0.1-SNAPSHOT.jar
+|-- app-server-0.0.1-SNAPSHOT.jar
 |-- public
-|   |-- index.html
+|   |-- bootstrap-icons.xxxxxxx.woff
+|   |-- bootstrap-icons.xxxxxxx.woff2
 |   |-- favicon.ico
+|   |-- index.html
 |   |-- main.xxxxxxx.js
 |   |-- polyfills.xxxxxxx.js
 |   |-- runtime.xxxxxxx.js
 |   |-- styles.xxxxxxx.css
 ```
 
-3. Start Application
+4. Start Application
 	- cmd (application folder): java -cp . -jar app-server-0.0.1-SNAPSHOT.jar  --spring.profiles.active=prod
 	- browse to : http://[production ip or domain]:8080/
 
