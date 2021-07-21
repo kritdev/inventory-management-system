@@ -1,5 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { IProductFilter } from 'src/app/entity/product-filter.model';
 import { IProduct, Product } from 'src/app/entity/product.model';
 import { ProductService } from 'src/app/service/product.service';
 
@@ -12,6 +13,7 @@ export class HomeComponent implements OnInit {
 
   productList: IProduct[];
   isLoading = false;
+  productFilter: IProductFilter = {};
 
   constructor(private productService: ProductService) { }
   
@@ -30,6 +32,29 @@ export class HomeComponent implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+
+  applyProductFilter(event) {
+    this.productFilter = event;
+  }
+
+  getProductList() {
+    if(!this.productList) return [];
+
+    return this.productList.filter(product => {
+      if(!this.productFilter) return true;
+
+      // // filter category
+      // if(this.productFilter.category) {
+      //   return product.category.name.includes(this.productFilter.category);
+      // }
+
+      return (this.productFilter.category? product.category.name.includes(this.productFilter.category) : true)
+          && (this.productFilter.productName? product.name.toLowerCase().includes(this.productFilter.productName) : true);
+
+      // // default, return all products
+      // return true;
+    });
   }
 
 }
