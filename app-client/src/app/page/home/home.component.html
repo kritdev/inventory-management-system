@@ -1,10 +1,27 @@
 <div class="m-2">
-  <app-search-bar (OnFilter)="applyProductFilter($event)"></app-search-bar>
-  <div class="product-content d-flex m-3 flex-wrap">
-    <app-product-summary 
-      class="col-sm-12 col-lg-6"
-      *ngFor="let product of getProductList()"
-      [product]="product">
-    </app-product-summary>
+
+  <div [ngSwitch]="isAuthenticated()">
+  
+    <div *ngSwitchCase="false" 
+      class="text-center my-5 p-5">
+      <h1 class="text-primary">Inventory Management System</h1>
+      <div class="text-secondary m-5">
+        <button class="btn btn-primary" [routerLink]="['/login']">
+          SIGN IN
+        </button>
+      </div>
+      
+    </div>
+  
+    <div *ngSwitchCase="true">
+      <app-search-bar (OnFilter)="applyProductFilter($event)"></app-search-bar>
+      <div class="product-content d-flex m-3 flex-wrap">
+        <app-product-summary 
+          class="col-sm-12 col-lg-6"
+          *ngFor="let product of getProductList()"
+          [product]="product">
+        </app-product-summary>
+      </div>
+    </div>
   </div>
 </div>

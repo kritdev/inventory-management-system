@@ -6,12 +6,16 @@ import { LoginComponent } from '../security/login/login.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { ProductUpdateComponent } from './product-update/product-update.component';
+import { UserRouteAccessService } from '../security/auth/user-route-access.service';
 
 @NgModule({
   imports: [
     RouterModule.forRoot(
       [
         {
+          path: 'login',
+          component: LoginComponent
+        },        {
           path: '',
           pathMatch: 'full',
           redirectTo: 'home'
@@ -21,28 +25,29 @@ import { ProductUpdateComponent } from './product-update/product-update.componen
           component: HomeComponent
         },
         {
-          path: 'login',
-          component: LoginComponent
-        },
-        {
           path: 'product-detail/:id',
-          component: ProductDetailComponent
+          component: ProductDetailComponent,
+          canActivate:[UserRouteAccessService]
         },
         {
           path: 'product',
-          component: ProductUpdateComponent
+          component: ProductUpdateComponent,
+          canActivate:[UserRouteAccessService]
         },
         {
           path: 'product/:id',
-          component: ProductUpdateComponent
+          component: ProductUpdateComponent,
+          canActivate:[UserRouteAccessService]
         },
         {
           path: 'transaction',
-          component: TransactionComponent
+          component: TransactionComponent,
+          canActivate:[UserRouteAccessService]
         },
         {
           path: 'transaction/:id',
-          component: TransactionComponent
+          component: TransactionComponent,
+          canActivate:[UserRouteAccessService]
         },
       ]
     ),

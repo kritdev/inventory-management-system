@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AccountService } from 'src/app/security/auth/account.service';
+import { LoginService } from 'src/app/security/login/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +12,11 @@ export class NavbarComponent implements OnInit {
 
   currentLogin = '';
   
-  constructor(private accountService: AccountService) { }
+  constructor(
+    private accountService: AccountService,
+    private loginService: LoginService,
+    private router: Router) { 
+    }
 
   ngOnInit(): void {
   }
@@ -29,5 +35,10 @@ export class NavbarComponent implements OnInit {
       .subscribe(
         account => { this.currentLogin = account.login; }
       )
+  }
+
+  logout() {
+    this.loginService.logout();
+    this.router.navigate(['/']);
   }
 }

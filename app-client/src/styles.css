@@ -42,3 +42,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .icon-link:hover {
  color: #0d6efd !important;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* for navbar dropdown - mat-icon-button and mat-menu */
+.cdk-overlay-container {
+  z-index: 1100;
+}
