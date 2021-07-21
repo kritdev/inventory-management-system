@@ -105,7 +105,7 @@ public class UnitOfMeasureResource {
   @GetMapping("/unit-of-measures")
   public List<UnitOfMeasure> getAllProducts() {
     log.debug("REST request to get all Products");
-    return unitOfMeasureRepository.findAll();
+    return unitOfMeasureRepository.findAllSortByName();
   }
 
   @GetMapping("/unit-of-measures/{id}")

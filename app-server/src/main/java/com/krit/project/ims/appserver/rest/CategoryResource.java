@@ -2,6 +2,7 @@ package com.krit.project.ims.appserver.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -103,9 +104,9 @@ public class CategoryResource {
   }
 
   @GetMapping("/categories")
-  public List<Category> getAllProducts() {
-    log.debug("REST request to get all Products");
-    return categoryRepository.findAll();
+  public List<Category> getAllCategories() {
+    log.debug("REST request to get all Categories");
+    return categoryRepository.findAllSortByName();
   }
 
   @GetMapping("/categories/{id}")
@@ -120,5 +121,12 @@ public class CategoryResource {
     log.debug("REST request to delete Category : {}", id);
     categoryRepository.deleteById(id);
     return ResponseEntity.noContent().build();
+  }
+}
+
+
+class SortbyName implements Comparator<Category> {
+  public int compare(Category a, Category b) {
+    return a.getName().compareTo(b.getName());
   }
 }
