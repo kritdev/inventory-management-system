@@ -42,18 +42,12 @@ export class HomeComponent implements OnInit {
     if(!this.productList) return [];
 
     return this.productList.filter(product => {
+      // if no filter, return all items
       if(!this.productFilter) return true;
 
-      // // filter category
-      // if(this.productFilter.category) {
-      //   return product.category.name.includes(this.productFilter.category);
-      // }
-
+      // filter items
       return (this.productFilter.category? product.category.name.includes(this.productFilter.category) : true)
           && (this.productFilter.productName? product.name.toLowerCase().includes(this.productFilter.productName) : true);
-
-      // // default, return all products
-      // return true;
     });
   }
 
