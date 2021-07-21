@@ -21,22 +21,6 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  // public retrieveProductList(): IProduct[] {
-  //   return sampleProductDataList;
-  // }
-
-  // public retrieveProductSummary(productId: number): IProductSummary {
-  //   return sampleProductDataList[productId - 101];
-  // }
-
-  // public retrieveProductSummaryList(): IProductSummary[] {
-  //   return sampleProductDataList;
-  // }
-
-  // public retrieveTransactionLogByProductId(productId: number): IInventoryTransactionItem[] {
-  //   return sampleTransactionByProductDataList;
-  // }
-
   public retrieveUnitOfMeasureList(): Observable<any> {
     return this.http.get<ICategory[]>(this.apiUrl + 'unit-of-measures')
       .pipe( 
