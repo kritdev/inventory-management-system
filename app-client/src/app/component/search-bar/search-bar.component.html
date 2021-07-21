@@ -7,9 +7,7 @@
     <select class="category-select form-select" aria-label="Select Category" (change)="onCategoryChange($event)">
       <option selected>Category</option>
       <option value="">All</option>
-      <option value="Table">Table</option>
-      <option value="Chair">Chair</option>
-      <option value="Decorating">Decorating</option>
+      <option [value]="category.name" *ngFor="let category of categories">{{category.name}}</option>
     </select>
   </div>
 </div>
