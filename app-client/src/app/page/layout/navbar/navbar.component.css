@@ -13,3 +13,8 @@ i {
 a {
   text-decoration: none;
 }
+
+.nav-icon-button {
+  background: transparent;
+  border: none;
+}

@@ -1,6 +1,6 @@
 <div class="d-flex flex-row justify-content-between bg-primary mb-3 px-2 fixed-top">
   <div class="p-2">
-    <a href="">
+    <a [routerLink]="['/']">
       <i class="bi bi-stack"></i>
       <span class='text-light mx-2'>Inventory Management System</span>
     </a>
@@ -17,12 +17,30 @@
       </div>
       
       <div *ngSwitchCase="true"> 
-        <a aria-label="Admin" target="_blank" rel="noopener" href="" title="Admin Setting">
+
+        <button class="nav-icon-button"
+          mat-icon-button [matMenuTriggerFor]="adminSetting" 
+          aria-label="Admin Setting">
           <i class="bi bi-gear-fill text-light mx-2"></i>
-        </a>
-        <a aria-label="User" target="_blank" rel="noopener" href="" title="User Setting">
+        </button>
+        <mat-menu #adminSetting="matMenu">
+          <button mat-menu-item [routerLink]="['/product']">
+            <mat-icon>post_add</mat-icon>
+            <span>New Product</span>
+          </button>
+        </mat-menu>
+
+        <button class="nav-icon-button"
+          mat-icon-button [matMenuTriggerFor]="userSetting" 
+          aria-label="User Setting">
           <i class="bi bi-person-fill text-light mx-2"></i>
-        </a>
+        </button>
+        <mat-menu #userSetting="matMenu">
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
       </div>
     </div>
   </div>

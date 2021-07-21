@@ -8,8 +8,6 @@ import { PageModule } from './page/page.module';
 import { SecurityModule } from './security/security.module';
 import { AuthInterceptor } from './security/interceptor/auth.interceptor';
 import { AuthExpiredInterceptor } from './security/interceptor/auth-expired.interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -19,9 +17,7 @@ import { MaterialModule } from './material/material.module';
     BrowserModule,
     HttpClientModule,
     PageModule, SecurityModule,
-    NgxWebstorageModule.forRoot(),
-    BrowserAnimationsModule,
-    MaterialModule
+    NgxWebstorageModule.forRoot()
   ],
   providers: [
     {
