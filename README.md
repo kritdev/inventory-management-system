@@ -31,7 +31,18 @@
   npm install
   ng serve -o
 ```
+<br><br>
+## Usage
+1. Create new product
+- In navbar, click Gear icon, and click new product
+- In new product screen, enter product information, and click save button
+- (Optional) Add product image and save
+2. Create new transaction
+- In home, click product card.
+- In Inventory Change Log section, click add button
+- In New Inventory Transaction, enter transaction information. For Item Count field, positive value is add item in stock. The nagative value is remove item from stock.
 
+<br><br>
 ## Deploy Project
 1. Update SQL Server setting for production environment in app-server. (app-server/src/main/resources/application-prod.properties).
 ```
