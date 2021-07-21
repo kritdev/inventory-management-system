@@ -1,5 +1,9 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from './home.service';
+import { IProductFilter } from 'src/app/entity/product-filter.model';
+import { IProduct, Product } from 'src/app/entity/product.model';
+import { AccountService } from 'src/app/security/auth/account.service';
+import { ProductService } from 'src/app/service/product.service';
 
 @Component({
   selector: 'app-home',
@@ -7,17 +11,52 @@ import { HomeService } from './home.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  data = null;
 
-  constructor(private homeService:HomeService) { }
+  productList: IProduct[];
+  isLoading = false;
+  productFilter: IProductFilter = {};
 
+  constructor(
+    private accountService: AccountService,
+    private productService: ProductService) { 
+    }
+  
   ngOnInit(): void {
-    this.homeService
-      .retrieveData()
-      .subscribe(
-        result => { this.data = result as any[]; },
-        err => { alert(err); }
-      );
+    this.retrieveProductList();
+  }
+
+  protected retrieveProductList() {
+    this.isLoading = true;
+    this.productService.query().subscribe(
+      (res: HttpResponse<IProduct[]>) => {
+        this.isLoading = false;
+        this.productList = res.body ?? [];
+      },
+      () => {
+        this.isLoading = false;
+      }
+    );
+  }
+
+  applyProductFilter(event) {
+    this.productFilter = event;
+  }
+
+  getProductList() {
+    if(!this.productList) return [];
+
+    return this.productList.filter(product => {
+      // if no filter, return all items
+      if(!this.productFilter) return true;
+
+      // filter items
+      return (this.productFilter.category? product.category.name.includes(this.productFilter.category) : true)
+          && (this.productFilter.productName? product.name.toLowerCase().includes(this.productFilter.productName) : true);
+    });
+  }
+
+  isAuthenticated() {
+    return this.accountService.isAuthenticated();
   }
 
 }

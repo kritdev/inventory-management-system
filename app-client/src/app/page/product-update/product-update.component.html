@@ -1,0 +1,158 @@
+<div class="card m-3 bg-light">
+  <div class="card-body">
+    <h2 class="text-secondary">
+      New Product
+    </h2>
+    <div class="row justify-content-center">
+      <div class="col-8 col-xl-6">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+          <div>    
+
+            <div class="visually-hidden">
+                <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+            </div>
+            
+            <div class="row mb-3">
+              <label class="col-md-3 col-form-label text-md-end" for="field_name">Name</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+                <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required"> This field is required. </small>
+                </div>
+              </div>
+            </div>
+    
+            <div class="row mb-3">
+              <label class="col-md-3 col-form-label text-md-end" for="field_brand">Brand</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" name="brand" id="field_brand" data-cy="brand" formControlName="brand" />
+              </div>
+            </div>
+    
+            <div class="row mb-3">
+              <label class="col-md-3 col-form-label text-md-end" for="field_productCode">Product Code</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" name="productCode" id="field_productCode" data-cy="productCode" formControlName="productCode"/>
+              </div>
+            </div>
+    
+            <div class="row mb-3">
+              <label class="col-md-3 col-form-label text-md-end" for="field_category">Category</label>
+              <div class="col-md-9">
+                <select class="form-control" id="field_category" data-cy="category" name="category" formControlName="category">
+                  <option [ngValue]="null"></option>
+                  <option
+                    [ngValue]="
+                      categoryOption.id === editForm.get('category')!.value?.id ? 
+                        editForm.get('category')!.value : 
+                        categoryOption
+                    "
+                    *ngFor="let categoryOption of categories; trackBy: trackById">
+                    {{ categoryOption.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+    
+            <div class="row mb-3">
+              <label class="col-md-3 col-form-label text-md-end" for="field_unitOfMeasure">Unit Of Measure</label>
+              <div class="col-md-9">
+                <select class="form-control" id="field_unitOfMeasure" data-cy="unitOfMeasure" name="unitOfMeasure" formControlName="unitOfMeasure">
+                  <option [ngValue]="null"></option>
+                  <option
+                    [ngValue]="
+                      unitOfMeasureOption.id === editForm.get('unitOfMeasure')!.value?.id
+                        ? editForm.get('unitOfMeasure')!.value
+                        : unitOfMeasureOption
+                    "
+                    *ngFor="let unitOfMeasureOption of unitOfMeasures; trackBy: trackById">
+                    {{ unitOfMeasureOption.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+    
+            <div class="row mb-3">
+              <label class="col-md-3 col-form-label text-md-end" for="field_description">Description</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" name="description" id="field_description" data-cy="description" formControlName="description"/>
+              </div>
+            </div>
+
+          </div>
+    
+          <div class="row justify-content-around">
+            <button type="button" id="cancel-save" class="col-5 col-md-3 btn btn-secondary" (click)="previousState()">
+              <i class="bi bi-x-octagon"></i>&nbsp;<span>Cancel</span>
+            </button>
+    
+            <button type="submit" id="save-entity" class="col-5 col-md-3 btn btn-primary" [disabled]="editForm.invalid || isSaving">
+              <i class="bi bi-save"></i>&nbsp;<span>Save</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card m-3 bg-light">
+  <div class="card-body">
+    <div class="row justify-content-center">
+      <div class="col-8 col-xl-6">
+        <div class="row mb-3">
+          <label class="col-md-3 col-form-label text-md-end" for="field_countInStock">Item</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="countInStock" id="field_countInStock" data-cy="countInStock"  [value]="getCountInStock()" disabled/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card m-3 bg-light">
+  <div class="card-body">
+    <div class="row justify-content-center">
+      <div class="col-8 col-xl-6">
+        <form name="imageForm" role="form" novalidate (ngSubmit)="saveImage()" [formGroup]="imageForm">
+          <div> 
+            <div class="row mb-3">
+              <label class="col-md-3 col-form-label text-md-end" for="field_description">Image</label>
+              <div class="col-md-9">
+                
+                <input type="file" id="file_imageData" data-cy="imageData" (change)="setFileData($event, 'imageData', true)" accept="image/*" />
+
+                <div [ngSwitch]="!!imageForm.get('imageData')!.value" class="m-3">
+                  <div *ngSwitchCase="true">
+                    <img class="img-product" 
+                      [src]="'data:' + imageForm.get('imageDataContentType')!.value + ';base64,' + imageForm.get('imageData')!.value"/>
+                    
+                    <a (click)="clearInputImage('imageData', 'imageDataContentType', 'file_imageData')">
+                      <i class="icon-delete bi bi-trash-fill text-danger"></i>
+                    </a>
+                  </div>
+
+                  <div *ngSwitchCase="false">
+                    <img class="img-product" src="assets/img/default-product-image.png"/>
+                  </div>
+
+                </div>
+              </div>
+
+              <input type="hidden" class="form-control" name="imageId" id="field_imageId" data-cy="imageId" formControlName="imageId" />
+              <input type="hidden" class="form-control" name="imageData" id="field_imageData" data-cy="imageData" formControlName="imageData" />
+              <input type="hidden" class="form-control" name="imageDataContentType" id="field_imageDataContentType" formControlName="imageDataContentType"/>
+
+            </div>
+            <div class="row justify-content-around">    
+              <button type="submit" id="save-image" class="col-5 col-md-3 btn btn-primary" [disabled]="imageForm.invalid || isImageSaving">
+                <i class="bi bi-save"></i>&nbsp;<span>Update</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

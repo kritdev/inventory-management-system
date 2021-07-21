@@ -1,0 +1,23 @@
+<div *ngIf="!isLoadingProduct">
+
+  <div class="edit-dev card m-3 my-0 flex-row justify-content-end">
+    <div>
+      <h2>
+        <!-- <i class="edit-icon bi bi-pencil-fill"></i> -->
+        <a class="icon-link text-secondary" [routerLink]="['/product', productId]">
+          <i class="edit-icon bi bi-pencil-square"></i>
+        </a>
+      </h2>
+    </div>
+  </div>
+
+  <app-product-summary
+    [product]="product"
+    [enableProductDetailLink]="false">
+  </app-product-summary>
+
+  <app-inventory-log
+    [productId]="product.id">
+  </app-inventory-log>
+
+</div>

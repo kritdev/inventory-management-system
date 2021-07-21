@@ -1,0 +1,13 @@
+<div class="seach-bar-section">
+  <div class="seach-bar-container d-flex align-items-center">
+    <i class="search-icon bi bi-search"></i>
+  
+    <input type="text" class="search-text form-control" placeholder="Search" (input)="onProductChange($event)">
+  
+    <select class="category-select form-select" aria-label="Select Category" (change)="onCategoryChange($event)">
+      <option selected>Category</option>
+      <option value="">All</option>
+      <option [value]="category.name" *ngFor="let category of categories">{{category.name}}</option>
+    </select>
+  </div>
+</div>

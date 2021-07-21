@@ -1,0 +1,13 @@
+.card-body{
+  background-color: white;
+}
+
+.transactionItem-card {
+  border: 1px solid rgba(0,0,0,.1);
+  position: relative;
+}
+
+.div-transactionItem-list {
+  height: calc(100vh - 380px);
+  overflow: auto;
+}
