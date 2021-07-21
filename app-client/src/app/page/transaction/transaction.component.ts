@@ -1,7 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { IInventoryTransactionItem, InventoryTransactionItem } from 'src/app/entity/inventory-transaction-item.model';
@@ -38,6 +38,15 @@ export class TransactionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {  
+    if(window.history.state.productId) {
+      this.inventoryTransactionItem = {
+        ...new InventoryTransactionItem(),
+        product: {
+          id: window.history.state.productId
+        }
+      }
+    }    
+
     this.retrieveProductNameList();
     this.updateForm(this.inventoryTransactionItem);
 

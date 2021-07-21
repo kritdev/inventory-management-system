@@ -2,7 +2,9 @@
   <div class="card-body">
     <h2 class="text-secondary d-flex justify-content-between">
       Inventory Change Log
-      <a class="icon-link text-secondary" [routerLink]="['/transaction']">
+      <a class="icon-link text-secondary" 
+        [routerLink]="['/transaction']" 
+        [state]="{ productId: productId }">
         <i class="bi bi-plus-circle-fill"></i>
       </a>
     </h2>
