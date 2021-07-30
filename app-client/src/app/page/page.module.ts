@@ -8,6 +8,8 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { ProductUpdateComponent } from './product-update/product-update.component';
+import { CategoryListComponent } from './category-list/category-list.component';
+import { CategoryUpdateComponent } from './category-update/category-update.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ProductUpdateComponent } from './product-update/product-update.componen
     NavbarComponent,
     ProductDetailComponent,
     TransactionComponent,
-    ProductUpdateComponent
+    ProductUpdateComponent,
+    CategoryListComponent,
+    CategoryUpdateComponent
   ],
   imports: [
     SharedModule,

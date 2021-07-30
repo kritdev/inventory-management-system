@@ -7,6 +7,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { TransactionComponent } from './transaction/transaction.component';
 import { ProductUpdateComponent } from './product-update/product-update.component';
 import { UserRouteAccessService } from '../security/auth/user-route-access.service';
+import { CategoryListComponent } from './category-list/category-list.component';
+import { CategoryUpdateComponent } from './category-update/category-update.component';
 
 @NgModule({
   imports: [
@@ -47,6 +49,21 @@ import { UserRouteAccessService } from '../security/auth/user-route-access.servi
         {
           path: 'transaction/:id',
           component: TransactionComponent,
+          canActivate:[UserRouteAccessService]
+        },
+        {
+          path: 'category',
+          component: CategoryListComponent,
+          canActivate:[UserRouteAccessService]
+        },
+        {
+          path: 'category/new',
+          component: CategoryUpdateComponent,
+          canActivate:[UserRouteAccessService]
+        },
+        {
+          path: 'category/update/:id',
+          component: CategoryUpdateComponent,
           canActivate:[UserRouteAccessService]
         },
       ]
