@@ -4,11 +4,11 @@ import { IInventoryTransactionItem } from 'src/app/entity/inventory-transaction-
 import { TransactionItemService } from 'src/app/service/transaction-item.service';
 
 @Component({
-  selector: 'app-inventory-log',
-  templateUrl: './inventory-log.component.html',
-  styleUrls: ['./inventory-log.component.css']
+  selector: 'app-transaction-list',
+  templateUrl: './transaction-list.component.html',
+  styleUrls: ['./transaction-list.component.css']
 })
-export class InventoryLogComponent implements OnInit {
+export class TransactionListComponent implements OnInit {
 
   @Input() productId: number;
   isLoading = false;
