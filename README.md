@@ -23,16 +23,17 @@
 <br><br>
 ## Usage
 1. Create "Category" and "Unit of Measure" lookup table
-- In navbar, click Gear icon, and click category
-- In category screen, click add button
-- Repeat the steps for "Unit of Measure"
+- In navbar, click Gear icon, and click category.
+- In category screen, click add button.
+- Fill in the details and click save button.
+- Repeat the steps for "Unit of Measure".
 2. Create new product
-- In navbar, click Gear icon, and click new product
-- In product screen, enter product information, and click save button
-- (Optional) Add product image and save
+- In navbar, click Gear icon, and click new product.
+- In product screen, enter product information, and click save button.
+- (Optional) Add product image and save.
 3. Create new transaction
 - In home, click product card.
-- In Inventory Change Log section, click add button
+- In Inventory Change Log section, click add button.
 - In New Inventory Transaction, enter transaction information. For Item Count field, positive value is add item in stock. The nagative value is remove item from stock.
 
 <br><br>
