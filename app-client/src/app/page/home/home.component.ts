@@ -51,8 +51,28 @@ export class HomeComponent implements OnInit {
 
       // filter items
       return (this.productFilter.category? product.category.name.includes(this.productFilter.category) : true)
-          && (this.productFilter.productName? product.name.toLowerCase().includes(this.productFilter.productName) : true);
+          && this.searchProductByKeyward(product, this.productFilter.productName);
     });
+  }
+
+  /**
+   * Return True, if the keyward is in any of these fields: -
+   * - Product Name
+   * - Product Code (Barcode)
+   * - Description
+   * 
+   * @param product 
+   * @param keyward 
+   * @returns 
+   */
+  searchProductByKeyward(product: IProduct, keyward):boolean {
+
+    // if keyward is blank, null or undefinded -> return true
+    if(!keyward) return true;
+
+    return (product.name? product.name.toLowerCase().includes(keyward) : false) ||
+      (product.productCode? product.productCode.toLowerCase().includes(keyward) : false) ||
+      (product.description? product.description.toLowerCase().includes(keyward) : false);
   }
 
   isAuthenticated() {

@@ -7,6 +7,10 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { TransactionComponent } from './transaction/transaction.component';
 import { ProductUpdateComponent } from './product-update/product-update.component';
 import { UserRouteAccessService } from '../security/auth/user-route-access.service';
+import { CategoryListComponent } from './category-list/category-list.component';
+import { CategoryUpdateComponent } from './category-update/category-update.component';
+import { UnitOfMeasureListComponent } from './unit-of-measure-list/unit-of-measure-list.component';
+import { UnitOfMeasureUpdateComponent } from './unit-of-measure-update/unit-of-measure-update.component';
 
 @NgModule({
   imports: [
@@ -47,6 +51,36 @@ import { UserRouteAccessService } from '../security/auth/user-route-access.servi
         {
           path: 'transaction/:id',
           component: TransactionComponent,
+          canActivate:[UserRouteAccessService]
+        },
+        {
+          path: 'category',
+          component: CategoryListComponent,
+          canActivate:[UserRouteAccessService]
+        },
+        {
+          path: 'category/new',
+          component: CategoryUpdateComponent,
+          canActivate:[UserRouteAccessService]
+        },
+        {
+          path: 'category/update/:id',
+          component: CategoryUpdateComponent,
+          canActivate:[UserRouteAccessService]
+        },
+        {
+          path: 'unit-of-measure',
+          component: UnitOfMeasureListComponent,
+          canActivate:[UserRouteAccessService]
+        },
+        {
+          path: 'unit-of-measure/new',
+          component: UnitOfMeasureUpdateComponent,
+          canActivate:[UserRouteAccessService]
+        },
+        {
+          path: 'unit-of-measure/update/:id',
+          component: UnitOfMeasureUpdateComponent,
           canActivate:[UserRouteAccessService]
         },
       ]
