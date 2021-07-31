@@ -7,7 +7,7 @@ import { ICategory } from '../entity/category.model';
 import { IInventoryTransactionItem } from '../entity/inventory-transaction-item.model';
 import { IProductSummary } from '../entity/product-summary.model';
 import { IProduct } from '../entity/product.model';
-import { UnitOfMeasure } from '../entity/unit-of-measure.model';
+import { IUnitOfMeasure, UnitOfMeasure } from '../entity/unit-of-measure.model';
 import { sampleProductDataList } from './sample-product-data';
 import { sampleTransactionByProductDataList } from './sample-transaction-log-data';
 
@@ -27,6 +27,29 @@ export class DataService {
         catchError(error => {  return throwError('Retrieve unit of measures fail.'); }) 
       );
   }
+
+  findUnitOfMeasure(id: number): Observable<HttpResponse<IUnitOfMeasure>> {
+    return this.http.get<IUnitOfMeasure>(`${this.apiUrl}unit-of-measures/${id}`, { observe: 'response' })
+            .pipe( 
+              catchError(error => {  return throwError('Find UnitOfMeasure Error.'); }) 
+            );
+  }
+
+  createUnitOfMeasure(item: IUnitOfMeasure): Observable<HttpResponse<IUnitOfMeasure>> {
+    return this.http.post<IInventoryTransactionItem>(`${this.apiUrl}unit-of-measures`, item, { observe: 'response' })
+            .pipe( 
+              catchError(error => {  return throwError('Create UnitOfMeasure Error.'); }) 
+            );
+  }
+
+  updateUnitOfMeasure(item: IUnitOfMeasure): Observable<HttpResponse<IUnitOfMeasure>> {
+    return this.http.put<IInventoryTransactionItem>(`${this.apiUrl}unit-of-measures/${item.id}`, item, { observe: 'response' })
+            .pipe( 
+              catchError(error => {  return throwError('Update UnitOfMeasure Error.'); }) 
+            );
+  }
+
+  // ----------------------------------------------------------------------------------------------------
 
   public retrieveCategorieList(): Observable<any> {
     return this.http.get<ICategory[]>(this.apiUrl + 'categories')

@@ -10,6 +10,8 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { ProductUpdateComponent } from './product-update/product-update.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { CategoryUpdateComponent } from './category-update/category-update.component';
+import { UnitOfMeasureListComponent } from './unit-of-measure-list/unit-of-measure-list.component';
+import { UnitOfMeasureUpdateComponent } from './unit-of-measure-update/unit-of-measure-update.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { CategoryUpdateComponent } from './category-update/category-update.compo
     TransactionComponent,
     ProductUpdateComponent,
     CategoryListComponent,
-    CategoryUpdateComponent
+    CategoryUpdateComponent,
+    UnitOfMeasureListComponent,
+    UnitOfMeasureUpdateComponent
   ],
   imports: [
     SharedModule,

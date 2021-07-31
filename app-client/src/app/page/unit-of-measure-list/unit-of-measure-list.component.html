@@ -1,0 +1,30 @@
+<div class="card m-3 bg-light">
+  <div class="card-body">
+    <h2 class="text-secondary d-flex justify-content-between">
+      Unit of Measure
+      <a class="icon-link text-secondary" 
+        [routerLink]="['/unit-of-measure/new']">
+        <i class="bi bi-plus-circle-fill"></i>
+      </a>
+    </h2>
+    
+    <div *ngIf="!isLoading">
+
+      <div class="text-center" *ngIf="unitOfMeasures.length == 0">
+        No item, please Click add button.
+      </div>
+
+      <div class="div-item-list">
+        <div class="item-card row m-3 px-3 py-2 bg-light item-hover" *ngFor="let item of unitOfMeasures"> 
+          <div class="col-4 overflow-hidden text-primary">
+            {{item.name}}
+          </div>
+          <div class="col-8 overflow-hidden text-secondary">
+            {{item.description}}
+          </div>
+          <a class="item-link" [routerLink]="['/unit-of-measure/update', item.id]"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
