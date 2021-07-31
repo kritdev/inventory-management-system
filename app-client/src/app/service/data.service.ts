@@ -34,4 +34,25 @@ export class DataService {
         catchError(error => {  return throwError('Retrieve categories fail.'); }) 
       );
   }
+
+  findCategory(id: number): Observable<HttpResponse<ICategory>> {
+    return this.http.get<ICategory>(`${this.apiUrl}categories/${id}`, { observe: 'response' })
+            .pipe( 
+              catchError(error => {  return throwError('Find Category Error.'); }) 
+            );
+  }
+
+  createCategory(item: ICategory): Observable<HttpResponse<ICategory>> {
+    return this.http.post<IInventoryTransactionItem>(`${this.apiUrl}categories`, item, { observe: 'response' })
+            .pipe( 
+              catchError(error => {  return throwError('Create Category Error.'); }) 
+            );
+  }
+
+  updateCategory(item: ICategory): Observable<HttpResponse<ICategory>> {
+    return this.http.put<IInventoryTransactionItem>(`${this.apiUrl}categories/${item.id}`, item, { observe: 'response' })
+            .pipe( 
+              catchError(error => {  return throwError('Update Category Error.'); }) 
+            );
+  }
 }
