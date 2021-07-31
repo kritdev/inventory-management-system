@@ -13,17 +13,6 @@
   mvnw spring-boot:run
 ```
 - In order to add more users or change password, It need to insert or update in database manually.
-- There are 2 lookup tables which need to insert data manually into database. Which are category and unit_of_measure tables. Example: -
-```
-  insert into ims.category(id, name, description) values(301, 'Chair', 'Chair Category');
-  insert into ims.category(id, name, description) values(302, 'Table', 'Table Category');
-  insert into ims.category(id, name, description) values(303, 'Decorating', 'Decorating Category');
-```
-```
-  insert into ims.unit_of_measure(id, name, description) values(401, 'pcs', 'Pieces');
-  insert into ims.unit_of_measure(id, name, description) values(402, 'boxes', 'Boxes');
-  insert into ims.unit_of_measure(id, name, description) values(403, 'packs', 'Packages');
-```
 
 #### 3. app-client 
 - Run application client by using commands: -
@@ -33,11 +22,15 @@
 ```
 <br><br>
 ## Usage
-1. Create new product
+1. Create "Category" and "Unit of Measure" lookup table
+- In navbar, click Gear icon, and click category
+- In category screen, click add button
+- Repeat the steps for "Unit of Measure"
+2. Create new product
 - In navbar, click Gear icon, and click new product
-- In new product screen, enter product information, and click save button
+- In product screen, enter product information, and click save button
 - (Optional) Add product image and save
-2. Create new transaction
+3. Create new transaction
 - In home, click product card.
 - In Inventory Change Log section, click add button
 - In New Inventory Transaction, enter transaction information. For Item Count field, positive value is add item in stock. The nagative value is remove item from stock.
