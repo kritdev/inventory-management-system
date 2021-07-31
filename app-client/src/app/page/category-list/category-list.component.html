@@ -16,8 +16,11 @@
 
       <div class="div-item-list">
         <div class="item-card row m-3 px-3 py-2 bg-light item-hover" *ngFor="let item of categories"> 
-          <div class="col">
+          <div class="col-4 overflow-hidden text-primary">
             {{item.name}}
+          </div>
+          <div class="col-8 overflow-hidden text-secondary">
+            {{item.description}}
           </div>
           <a class="item-link" [routerLink]="['/category/update', item.id]"></a>
         </div>
