@@ -57,7 +57,7 @@ Note. If these properties are not set, it will use setting from development envi
 	- Copy to file into production environment
 ```
 /application folder
-|-- app-server-0.0.1-SNAPSHOT.jar
+|-- app-server-0.0.2-SNAPSHOT.jar
 |-- public
 |   |-- bootstrap-icons.xxxxxxx.woff
 |   |-- bootstrap-icons.xxxxxxx.woff2
