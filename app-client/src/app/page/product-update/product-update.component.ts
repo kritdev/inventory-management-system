@@ -37,8 +37,8 @@ export class ProductUpdateComponent implements OnInit {
     productCode: [],
     brand: [],
     description: [],
-    category: [],
-    unitOfMeasure: [],
+    category: [null, [Validators.required]],
+    unitOfMeasure: [null, [Validators.required]],
   });
 
   imageForm = this.fb.group({

@@ -39,7 +39,7 @@
             <div class="row mb-3">
               <label class="col-md-3 col-form-label text-md-end" for="field_category">Category</label>
               <div class="col-md-9">
-                <select class="form-control" id="field_category" data-cy="category" name="category" formControlName="category">
+                <select class="form-control" id="field_category" data-cy="category" name="category" formControlName="category" required>
                   <option [ngValue]="null"></option>
                   <option
                     [ngValue]="
@@ -51,13 +51,16 @@
                     {{ categoryOption.name }}
                   </option>
                 </select>
+                <div *ngIf="editForm.get('category')!.invalid && (editForm.get('category')!.dirty || editForm.get('category')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editForm.get('category')?.errors?.required"> This field is required. </small>
+                </div>
               </div>
             </div>
     
             <div class="row mb-3">
               <label class="col-md-3 col-form-label text-md-end" for="field_unitOfMeasure">Unit Of Measure</label>
               <div class="col-md-9">
-                <select class="form-control" id="field_unitOfMeasure" data-cy="unitOfMeasure" name="unitOfMeasure" formControlName="unitOfMeasure">
+                <select class="form-control" id="field_unitOfMeasure" data-cy="unitOfMeasure" name="unitOfMeasure" formControlName="unitOfMeasure" required>
                   <option [ngValue]="null"></option>
                   <option
                     [ngValue]="
@@ -69,6 +72,9 @@
                     {{ unitOfMeasureOption.name }}
                   </option>
                 </select>
+                <div *ngIf="editForm.get('unitOfMeasure')!.invalid && (editForm.get('unitOfMeasure')!.dirty || editForm.get('unitOfMeasure')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editForm.get('unitOfMeasure')?.errors?.required"> This field is required. </small>
+                </div>
               </div>
             </div>
     
@@ -77,6 +83,35 @@
               <div class="col-md-9">
                 <textarea class="form-control" name="description" id="field_description" data-cy="description" formControlName="description"></textarea>
               </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-md-3 col-form-label text-md-end" for="field_description">Image</label>
+              <div class="col-md-9">
+                
+                <input type="file" id="file_imageData" data-cy="imageData" (change)="setFileData($event, 'imageData', true)" accept="image/*" />
+
+                <div [ngSwitch]="!!imageForm.get('imageData')!.value" class="m-3">
+                  <div *ngSwitchCase="true">
+                    <img class="img-product" 
+                      [src]="'data:' + imageForm.get('imageDataContentType')!.value + ';base64,' + imageForm.get('imageData')!.value"/>
+                    
+                    <a (click)="clearInputImage('imageData', 'imageDataContentType', 'file_imageData')">
+                      <i class="icon-delete bi bi-trash-fill text-danger"></i>
+                    </a>
+                  </div>
+
+                  <div *ngSwitchCase="false">
+                    <img class="img-product" src="assets/img/default-product-image.png"/>
+                  </div>
+
+                </div>
+              </div>
+
+              <input type="hidden" class="form-control" name="imageId" id="field_imageId" data-cy="imageId" formControlName="imageId" />
+              <input type="hidden" class="form-control" name="imageData" id="field_imageData" data-cy="imageData" formControlName="imageData" />
+              <input type="hidden" class="form-control" name="imageDataContentType" id="field_imageDataContentType" formControlName="imageDataContentType"/>
+
             </div>
 
           </div>
@@ -111,6 +146,8 @@
   </div>
 </div>
 
+<div class="p-1"></div>
+<!-- 
 <div class="card m-3 bg-light">
   <div class="card-body">
     <div class="row justify-content-center">
@@ -155,4 +192,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
