@@ -1,0 +1,26 @@
+<div class="card m-3 bg-light">
+  <div class="card-body">
+    <h2 class="text-secondary">
+      Category
+    </h2>
+    <div class="row justify-content-center">
+      <div class="col-8 col-xl-6">
+        <form (ngSubmit)="onSubmit()"  #settingForm="ngForm">
+          <app-form-control-text [setting]='vm' [fieldName]='"name"' [isRequired]='true'></app-form-control-text>
+          <app-form-control-text [setting]='vm' [fieldName]='"description"'></app-form-control-text>
+
+          <div class="row justify-content-around">
+            <button type="button" id="cancel-save" class="col-5 col-md-3 btn btn-secondary" (click)="previousState()">
+              <i class="bi bi-x-octagon"></i>&nbsp;<span>Cancel</span>
+            </button>
+    
+            <button type="submit" id="save-entity" class="col-5 col-md-3 btn btn-primary" [disabled]="!settingForm.valid" >
+              <i class="bi bi-save"></i>&nbsp;<span>Save</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

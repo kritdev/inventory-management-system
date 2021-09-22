@@ -12,6 +12,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
 import { CategoryUpdateComponent } from './category-update/category-update.component';
 import { UnitOfMeasureListComponent } from './unit-of-measure-list/unit-of-measure-list.component';
 import { UnitOfMeasureUpdateComponent } from './unit-of-measure-update/unit-of-measure-update.component';
+import { AppFormModule } from '../component/app-form/app-form.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { UnitOfMeasureUpdateComponent } from './unit-of-measure-update/unit-of-m
     SharedModule,
     PageRoutingModule,
     AppComponentModule,
+    AppFormModule,
   ],
   exports: [
     MainComponent,

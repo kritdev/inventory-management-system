@@ -4,6 +4,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { ISetting } from 'src/app/entity/setting.model';
 import { IUnitOfMeasure, UnitOfMeasure } from 'src/app/entity/unit-of-measure.model';
 import { DataService } from 'src/app/service/data.service';
 
@@ -18,14 +19,7 @@ export class UnitOfMeasureUpdateComponent implements OnInit {
   isSaving = false;
   unitOfMeasure: IUnitOfMeasure = {};
 
-  editForm = this.fb.group({
-    id: [],
-    name: [null, [Validators.required]],
-    description: [],
-  });
-
   constructor(
-    private fb: FormBuilder, 
     private route: ActivatedRoute,
     private dataService: DataService,
   ) { }
@@ -48,34 +42,13 @@ export class UnitOfMeasureUpdateComponent implements OnInit {
       .subscribe(
         result => { 
           this.unitOfMeasure = result.body; 
-          this.updateForm(this.unitOfMeasure);
         },
         err => { alert(err); }
       );
   }
 
-  protected updateForm(item: IUnitOfMeasure): void {
-    if(item){
-      this.editForm.patchValue({
-        id: item.id,
-        name: item.name,
-        description: item.description,
-      });
-    }
-  }
-
-  protected getFormItem(): IUnitOfMeasure {
-    return {
-      ...new UnitOfMeasure(),
-      id: this.editForm.get(['id'])!.value,
-      name: this.editForm.get(['name'])!.value,
-      description: this.editForm.get(['description'])!.value,
-    };
-  }
-
-  save(): void {
+  save(item: ISetting): void {
     this.isSaving = true;
-    const item = this.getFormItem();
     if (item.id) {
       this.subscribeToSaveResponse(this.dataService.updateUnitOfMeasure(item));
     } else {
