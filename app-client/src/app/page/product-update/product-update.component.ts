@@ -162,12 +162,19 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   protected getFormImage(): IImage {
-    return {
-      ...new Image(),
-      id: this.editForm.get(['imageId'])!.value,
-      imageData: this.editForm.get(['imageData'])!.value,
-      imageDataContentType: this.editForm.get(['imageDataContentType'])!.value,
-    };
+    const imageData = this.editForm.get(['imageData'])!.value;
+    const imageDataContentType = this.editForm.get(['imageDataContentType'])!.value;
+
+    if(!imageData || !imageDataContentType){
+      return undefined;
+    } else {
+      return {
+        ...new Image(),
+        id: this.editForm.get(['imageId'])!.value,
+        imageData: imageData,
+        imageDataContentType: imageDataContentType,
+      };
+    }
   }
 
   getCountInStock():number {
@@ -249,6 +256,15 @@ export class ProductUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const product = this.getFormProduct();
+    const image = this.getFormImage();
+    
+    // Assign image to product
+    if(image) {
+      product.images = [image];
+    }
+
+    console.log(product);
+
     if (product.id) {
       this.subscribeToSaveResponse(this.productService.update(product));
     } else {
@@ -268,6 +284,7 @@ export class ProductUpdateComponent implements OnInit {
   protected onSaveSuccess(result): void {
     this.product = result.body;
     this.updateForm(this.product);
+    this.previousState();
   }
 
   protected onSaveError(err): void {

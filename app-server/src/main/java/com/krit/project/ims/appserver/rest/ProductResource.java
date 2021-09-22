@@ -2,9 +2,11 @@ package com.krit.project.ims.appserver.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -20,7 +22,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.krit.project.ims.appserver.entity.Image;
 import com.krit.project.ims.appserver.entity.Product;
+import com.krit.project.ims.appserver.entity.repository.ImageRepository;
 import com.krit.project.ims.appserver.entity.repository.ProductRepository;
 import com.krit.project.ims.appserver.rest.errors.BadRequestAlertException;
 import com.krit.project.ims.appserver.rest.vm.ProductName;
@@ -35,9 +39,11 @@ public class ProductResource {
   private static final String ENTITY_NAME = "product";
 
   private final ProductRepository productRepository;
+  private final ImageRepository imageRepository;
 
-  public ProductResource(ProductRepository productRepository) {
+  public ProductResource(ProductRepository productRepository, ImageRepository imageRepository) {
     this.productRepository = productRepository;
+    this.imageRepository = imageRepository;
   }
 
   @PostMapping("/products")
@@ -49,6 +55,8 @@ public class ProductResource {
           "idexists");
     }
     Product result = productRepository.save(product);
+    saveProductImage(result, product.getImages());
+
     return ResponseEntity.created(new URI("/api/products/" + result.getId())).body(result);
   }
 
@@ -69,6 +77,8 @@ public class ProductResource {
     }
 
     Product result = productRepository.save(product);
+    saveProductImage(result, product.getImages());
+
     return ResponseEntity.ok().body(result);
   }
 
@@ -104,6 +114,7 @@ public class ProductResource {
 
       return existingProduct;
     }).map(productRepository::save);
+    saveProductImage(result.get(), product.getImages());
 
     return AppResponseUtil.wrapOrNotFound(result, null);
   }
@@ -132,5 +143,31 @@ public class ProductResource {
   public List<ProductName> getAllProductName() {
     log.debug("REST request to get all ProductName");
     return productRepository.findAllProductName();
+  }
+
+  private void saveProductImage(Product product, Set<Image> images) {
+    // if product does not have id, throw error
+    if (product.getId() == null) {
+      throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+    }
+
+    // if image does not have data, do not thing
+    if (images == null || images.isEmpty()) {
+      return;
+    }
+
+    // create parent product
+    Product parent = new Product();
+    parent.setId(product.getId());
+
+    // save all images
+    Set<Image> resultImages = new HashSet<>();
+    for (Image image : images) {
+      image.setProduct(parent);
+      resultImages.add(imageRepository.save(image));
+    }
+
+    // update product
+    product.setImages(resultImages);
   }
 }
