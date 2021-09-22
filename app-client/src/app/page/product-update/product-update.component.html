@@ -91,10 +91,10 @@
                 
                 <input type="file" id="file_imageData" data-cy="imageData" (change)="setFileData($event, 'imageData', true)" accept="image/*" />
 
-                <div [ngSwitch]="!!imageForm.get('imageData')!.value" class="m-3">
+                <div [ngSwitch]="!!editForm.get('imageData')!.value" class="m-3">
                   <div *ngSwitchCase="true">
                     <img class="img-product" 
-                      [src]="'data:' + imageForm.get('imageDataContentType')!.value + ';base64,' + imageForm.get('imageData')!.value"/>
+                      [src]="'data:' + editForm.get('imageDataContentType')!.value + ';base64,' + editForm.get('imageData')!.value"/>
                     
                     <a (click)="clearInputImage('imageData', 'imageDataContentType', 'file_imageData')">
                       <i class="icon-delete bi bi-trash-fill text-danger"></i>
