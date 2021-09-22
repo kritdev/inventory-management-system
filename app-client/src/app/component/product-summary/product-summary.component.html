@@ -12,13 +12,13 @@
       <h3 class="text-primary">{{product.name}}</h3>
       <div class="text-secondary">
         Brand: {{product.brand}} <br>
-        Category: {{product.category.name}}
+        Category: {{product.category?.name}}
       </div>
     </div>
     <div>
       <h1 class="text-dark">{{getCountInStock() | number}}</h1>
       <div class="text-secondary text-end">
-        {{product.unitOfMeasure.name}}
+        {{product.unitOfMeasure?.name}}
       </div>
     </div>
     <a class="item-link" [routerLink]="['/product-detail', product.id]" *ngIf="enableProductDetailLink"></a>

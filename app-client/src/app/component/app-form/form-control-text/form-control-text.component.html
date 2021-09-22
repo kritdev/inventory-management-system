@@ -1,1 +1,15 @@
-<p>form-control-text works!</p>
+<div class="row mb-3">
+  <label class="col-md-3 col-form-label text-md-end" for="input_control">{{fieldName | titlecase}}</label>
+  <div class="col-md-9">
+    <div class="input-group">
+      <input type="text" class="form-control" id="input_control" 
+        [(ngModel)]="setting[fieldName]" 
+        [name]="fieldName" 
+        [required]="isRequired ? 'required' : null">
+    </div>
+    <!-- <div
+      *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+      <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required"> This field is required. </small>
+    </div> -->
+  </div>
+</div>
