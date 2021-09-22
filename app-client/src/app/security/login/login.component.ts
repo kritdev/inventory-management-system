@@ -1,6 +1,6 @@
-import { AfterViewInit, ElementRef } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from './login.service';
 
 @Component({
@@ -14,8 +14,8 @@ export class LoginComponent {
   authenticationError = false;
 
   loginForm = this.fb.group({
-    username: [''],
-    password: [''],
+    username: [null, [Validators.required]],
+    password: [null, [Validators.required]],
     rememberMe: [false],
   });
 
