@@ -57,7 +57,7 @@ Note. If these properties are not set, it will use setting from development envi
 	- Copy to file into production environment
 ```
 /application folder
-|-- app-server-0.0.2-SNAPSHOT.jar
+|-- app-server-0.0.3-SNAPSHOT.jar
 |-- public
 |   |-- bootstrap-icons.xxxxxxx.woff
 |   |-- bootstrap-icons.xxxxxxx.woff2
@@ -70,6 +70,12 @@ Note. If these properties are not set, it will use setting from development envi
 ```
 
 4. Start Application
-	- cmd (application folder): java -cp . -jar app-server-0.0.1-SNAPSHOT.jar  --spring.profiles.active=prod
+	- cmd (application folder): java -cp . -jar app-server-0.0.3-SNAPSHOT.jar  --spring.profiles.active=prod
 	- browse to : http://[production ip or domain]:8080/
 
+<br><br>
+## Version 0.0.3
+### Improvements
+- Create reusable template-driven form for Category and Unit-of-Measure editing page.
+- Improve product editing page by saving both product and image entity in one transaction.
+- add css for valid/invalid form control
