@@ -37,15 +37,19 @@ export class ProductUpdateComponent implements OnInit {
     productCode: [],
     brand: [],
     description: [],
-    category: [],
-    unitOfMeasure: [],
+    category: [null, [Validators.required]],
+    unitOfMeasure: [null, [Validators.required]],
+
+    imageId: [],
+    imageData: [],
+    imageDataContentType: [],
   });
 
-  imageForm = this.fb.group({
-    imageId: [],
-    imageData: [null, [Validators.required]],
-    imageDataContentType: [null, [Validators.required]],
-  });
+  // imageForm = this.fb.group({
+  //   imageId: [],
+  //   imageData: [null, [Validators.required]],
+  //   imageDataContentType: [null, [Validators.required]],
+  // });
 
   constructor(
     private fb: FormBuilder, 
@@ -132,7 +136,7 @@ export class ProductUpdateComponent implements OnInit {
 
   protected updateImageForm(image: IImage): void {
     if(image) {
-      this.imageForm.patchValue({
+      this.editForm.patchValue({
         imageId: image.id,
         imageData: image.imageData,
         imageDataContentType: image.imageDataContentType,
@@ -158,12 +162,19 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   protected getFormImage(): IImage {
-    return {
-      ...new Image(),
-      id: this.imageForm.get(['imageId'])!.value,
-      imageData: this.imageForm.get(['imageData'])!.value,
-      imageDataContentType: this.imageForm.get(['imageDataContentType'])!.value,
-    };
+    const imageData = this.editForm.get(['imageData'])!.value;
+    const imageDataContentType = this.editForm.get(['imageDataContentType'])!.value;
+
+    if(!imageData || !imageDataContentType){
+      return undefined;
+    } else {
+      return {
+        ...new Image(),
+        id: this.editForm.get(['imageId'])!.value,
+        imageData: imageData,
+        imageDataContentType: imageDataContentType,
+      };
+    }
   }
 
   getCountInStock():number {
@@ -184,7 +195,7 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   setFileData(event: Event, field: string, isImage: boolean): void {
-    this.dataUtils.loadFileToForm(event, this.imageForm, field, isImage).subscribe({
+    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
       error: (err: FileLoadError) =>
         alert(err.message),
     });
@@ -195,7 +206,7 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   clearInputImage(field: string, fieldContentType: string, idInput: string): void {
-    this.imageForm.patchValue({
+    this.editForm.patchValue({
       [field]: null,
       [fieldContentType]: null,
     });
@@ -245,6 +256,15 @@ export class ProductUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const product = this.getFormProduct();
+    const image = this.getFormImage();
+    
+    // Assign image to product
+    if(image) {
+      product.images = [image];
+    }
+
+    console.log(product);
+
     if (product.id) {
       this.subscribeToSaveResponse(this.productService.update(product));
     } else {
@@ -264,6 +284,7 @@ export class ProductUpdateComponent implements OnInit {
   protected onSaveSuccess(result): void {
     this.product = result.body;
     this.updateForm(this.product);
+    this.previousState();
   }
 
   protected onSaveError(err): void {

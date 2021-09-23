@@ -22,7 +22,9 @@ export class HomeComponent implements OnInit {
     }
   
   ngOnInit(): void {
-    this.retrieveProductList();
+    if (this.isAuthenticated()) {
+      this.retrieveProductList();
+    }
   }
 
   protected retrieveProductList() {

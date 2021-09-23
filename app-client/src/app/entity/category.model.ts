@@ -1,7 +1,6 @@
-export interface ICategory {
-  id?: number;
-  name?: string;
-  description?: string | null;
+import { ISetting } from "./setting.model";
+
+export interface ICategory extends ISetting {
 }
 
 export class Category implements ICategory {
