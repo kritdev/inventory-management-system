@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.krit.project.ims</groupId>
 	<artifactId>app-server</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>app-server</name>
 	<description>CTF Personal Project</description>
 	<properties>
